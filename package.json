@@ -1,0 +1,51 @@
+{
+  "name": "@ezmode-games/website",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "lint": "biome check --write --unsafe",
+    "typecheck": "astro check",
+    "preflight": "pnpm lint && pnpm typecheck && pnpm build && pnpm test && pnpm test:e2e && pnpm test:ct",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:debug": "playwright test --debug",
+    "test:ct": "playwright test -c playwright-ct.config.ts",
+    "test:ct:ui": "playwright test -c playwright-ct.config.ts --ui"
+  },
+  "dependencies": {
+    "@astrojs/react": "^4.4.2",
+    "@tailwindcss/vite": "^4.1.18",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "astro": "^5.16.5",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.6",
+    "@biomejs/biome": "^2.3.8",
+    "@playwright/experimental-ct-react": "^1.57.0",
+    "@playwright/test": "^1.57.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^25.0.1",
+    "@vitest/coverage-v8": "^4.0.15",
+    "@vitest/ui": "^4.0.15",
+    "happy-dom": "^20.0.11",
+    "jsdom": "^27.3.0",
+    "lefthook": "^2.0.11",
+    "playwright": "^1.57.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.15"
+  }
+}

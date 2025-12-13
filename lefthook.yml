@@ -1,0 +1,14 @@
+# Git hooks configuration for lefthook
+# https://lefthook.dev/configuration/
+
+pre-commit:
+  commands:
+    lint:
+      run: pnpm biome check --write --unsafe {staged_files}
+      glob: "*.{js,ts,jsx,tsx,astro,json}"
+      stage_fixed: true
+
+pre-push:
+  commands:
+    preflight:
+      run: pnpm preflight
