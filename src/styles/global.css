@@ -1,1 +1,162 @@
 @import "tailwindcss";
+
+@custom-variant dark (@media (prefers-color-scheme: dark));
+
+@theme {
+  /* Fonts */
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-display: "Teko", ui-sans-serif, system-ui, sans-serif;
+  --font-ui: "Chakra Petch", ui-sans-serif, system-ui, sans-serif;
+
+  /* EZ Red - #900202 base (brand primary) */
+  --color-ez-red-50: #fef2f2;
+  --color-ez-red-100: #fee2e2;
+  --color-ez-red-200: #fecaca;
+  --color-ez-red-300: #fca5a5;
+  --color-ez-red-400: #f87171;
+  --color-ez-red-500: #dc2626;
+  --color-ez-red-600: #b91c1c;
+  --color-ez-red-700: #900202;
+  --color-ez-red-800: #7f1d1d;
+  --color-ez-red-900: #450a0a;
+  --color-ez-red-950: #2a0505;
+
+  /* EZ Yellow - #fe9a00 base (accent/highlight) */
+  --color-ez-yellow-50: #fffbeb;
+  --color-ez-yellow-100: #fef3c7;
+  --color-ez-yellow-200: #fde68a;
+  --color-ez-yellow-300: #fcd34d;
+  --color-ez-yellow-400: #fbbf24;
+  --color-ez-yellow-500: #fe9a00;
+  --color-ez-yellow-600: #d97706;
+  --color-ez-yellow-700: #b45309;
+  --color-ez-yellow-800: #92400e;
+  --color-ez-yellow-900: #78350f;
+  --color-ez-yellow-950: #451a03;
+
+  /* EZ Green - #00a63e base (success) */
+  --color-ez-green-50: #f0fdf4;
+  --color-ez-green-100: #dcfce7;
+  --color-ez-green-200: #bbf7d0;
+  --color-ez-green-300: #86efac;
+  --color-ez-green-400: #4ade80;
+  --color-ez-green-500: #00a63e;
+  --color-ez-green-600: #16a34a;
+  --color-ez-green-700: #15803d;
+  --color-ez-green-800: #166534;
+  --color-ez-green-900: #14532d;
+  --color-ez-green-950: #052e16;
+
+  /* EZ Grey - neutral scale for dark theme */
+  --color-ez-grey-50: #fafafa;
+  --color-ez-grey-100: #f5f5f5;
+  --color-ez-grey-200: #e5e5e5;
+  --color-ez-grey-300: #d4d4d4;
+  --color-ez-grey-400: #a3a3a3;
+  --color-ez-grey-500: #737373;
+  --color-ez-grey-600: #525252;
+  --color-ez-grey-700: #404040;
+  --color-ez-grey-800: #262626;
+  --color-ez-grey-900: #1e1e1e;
+  --color-ez-grey-950: #0a0a0a;
+}
+
+html,
+body {
+  background-color: var(--color-ez-grey-900);
+  color: var(--color-ez-grey-100);
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.625rem;
+
+  /* EZ Mode dark-first semantic tokens */
+  --background: var(--color-ez-grey-900);
+  --foreground: var(--color-ez-grey-100);
+  --primary: var(--color-ez-red-700);
+  --primary-foreground: var(--color-ez-grey-50);
+  --secondary: var(--color-ez-grey-700);
+  --secondary-foreground: var(--color-ez-grey-100);
+  --muted: var(--color-ez-grey-800);
+  --muted-foreground: var(--color-ez-grey-500);
+  --accent: var(--color-ez-yellow-500);
+  --accent-foreground: var(--color-ez-grey-950);
+  --destructive: var(--color-ez-red-600);
+  --destructive-foreground: var(--color-ez-grey-50);
+  --border: var(--color-ez-grey-700);
+  --input: var(--color-ez-grey-700);
+  --ring: var(--color-ez-yellow-500);
+  --card: var(--color-ez-grey-800);
+  --card-foreground: var(--color-ez-grey-100);
+  --popover: var(--color-ez-grey-800);
+  --popover-foreground: var(--color-ez-grey-100);
+
+  /* Chart colors */
+  --chart-1: var(--color-ez-red-500);
+  --chart-2: var(--color-ez-yellow-500);
+  --chart-3: var(--color-ez-green-500);
+  --chart-4: var(--color-ez-grey-400);
+  --chart-5: var(--color-ez-grey-600);
+
+  /* Sidebar */
+  --sidebar: var(--color-ez-grey-950);
+  --sidebar-foreground: var(--color-ez-grey-100);
+  --sidebar-primary: var(--color-ez-red-700);
+  --sidebar-primary-foreground: var(--color-ez-grey-50);
+  --sidebar-accent: var(--color-ez-grey-800);
+  --sidebar-accent-foreground: var(--color-ez-grey-100);
+  --sidebar-border: var(--color-ez-grey-700);
+  --sidebar-ring: var(--color-ez-yellow-500);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
