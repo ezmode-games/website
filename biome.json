@@ -14,8 +14,7 @@
       "!**/.astro",
       "!**/coverage",
       "!**/playwright-report",
-      "!**/test-results",
-      "!**/src/styles/global.css"
+      "!**/test-results"
     ]
   },
   "formatter": {
@@ -90,6 +89,21 @@
     }
   },
   "overrides": [
+    {
+      "includes": ["**/*.svelte", "**/*.astro", "**/*.vue"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useConst": "off",
+            "useImportType": "off"
+          },
+          "correctness": {
+            "noUnusedVariables": "off",
+            "noUnusedImports": "off"
+          }
+        }
+      }
+    },
     {
       "includes": ["**/*.test.ts", "**/*.test.tsx", "**/*.spec.ts", "**/*.ct.tsx"],
       "linter": {

@@ -1,0 +1,94 @@
+
+---
+import Logo from './Logo.astro';
+---
+
+<footer class="bg-ez-grey-950 py-12">
+	<div class="container mx-auto px-4">
+		<div class="flex flex-col items-start justify-between gap-8 md:flex-row">
+			<!-- Logo and tagline -->
+			<div class="max-w-md">
+				<div class="flex items-center gap-2">
+					<Logo class="size-10 text-muted-foreground" />
+					<span class="font-display text-4xl font-semibold text-muted-foreground">games</span>
+				</div>
+				<p class="mt-4 font-mono text-sm text-ez-grey-400">
+					Gaming tools made easy.<br />
+					Modern tech too!.
+				</p>
+			</div>
+			
+			<!-- Links -->
+			<div class="flex flex-col gap-8 sm:flex-row sm:gap-12 md:gap-16">
+				<div>
+					<h3 class="font-ui text-sm font-bold uppercase tracking-wider text-ez-yellow-500">
+						Platform
+					</h3>
+					<ul class="mt-4 space-y-2">
+						<li>
+							<a href="#about" class="font-mono text-sm text-ez-grey-400 transition-colors hover:text-ez-yellow-500">
+								About
+							</a>
+						</li>
+						<li>
+							<a href="#open-source" class="font-mono text-sm text-ez-grey-400 transition-colors hover:text-ez-yellow-500">
+								Open Source
+							</a>
+						</li>
+						<li>
+							<a href="#policies" class="font-mono text-sm text-ez-grey-400 transition-colors hover:text-ez-yellow-500">
+								Policies
+							</a>
+						</li>
+					</ul>
+				</div>
+				
+				<div>
+					<h3 class="font-ui text-sm font-bold uppercase tracking-wider text-ez-yellow-500">
+						Community
+					</h3>
+					<ul class="mt-4 space-y-2">
+						<li>
+							<a href="https://github.com/ezmode-games" target="_blank" rel="noopener noreferrer" class="font-mono text-sm text-ez-grey-400 transition-colors hover:text-ez-yellow-500">
+								GitHub
+							</a>
+						</li>
+						<li>
+							<a href="https://discord.gg/ezmode" target="_blank" rel="noopener noreferrer" class="font-mono text-sm text-ez-grey-400 transition-colors hover:text-ez-yellow-500">
+								Discord
+							</a>
+						</li>
+						<li>
+							<a href="mailto:info@ezmode.games" class="font-mono text-sm text-ez-grey-400 transition-colors hover:text-ez-yellow-500">
+								Contact
+							</a>
+						</li>
+					</ul>
+				</div>
+				
+				<div>
+					<h3 class="font-ui text-sm font-bold uppercase tracking-wider text-ez-yellow-500">
+						License
+					</h3>
+					<ul class="mt-4 space-y-2">
+						<li>
+							<a href="https://www.gnu.org/licenses/agpl-3.0.en.html" target="_blank" rel="noopener noreferrer" class="font-mono text-sm text-ez-grey-400 transition-colors hover:text-ez-yellow-500">
+								AGPL-3.0
+							</a>
+						</li>
+						<li class="font-mono text-xs text-ez-grey-500">
+								Free for modders,<br />not for leeches
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Copyright -->
+		<div class="mt-12 border-t border-ez-grey-800 pt-8 text-center">
+			<p class="font-mono text-xs text-ez-grey-500">
+				© {new Date().getFullYear()} EZMode Games. Built with care in the PNW (yay! Trees! Rain!). All rights reserved.
+			</p>
+		</div>
+	</div>
+</footer>

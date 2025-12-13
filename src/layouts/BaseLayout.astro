@@ -1,0 +1,33 @@
+---
+import '../styles/global.css';
+
+type Props = { title?: string; description?: string };
+const { title = 'EZMode Games', description = 'EZMode Games - Gaming made easy' } =
+  Astro.props as Props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		
+		<!-- Favicon -->
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		
+		<!-- Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Teko:wght@400;500;600;700&family=Chakra+Petch:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body class="min-h-screen font-sans antialiased">
+		<div class="flex min-h-screen flex-col">
+			<slot />
+		</div>
+	</body>
+</html>

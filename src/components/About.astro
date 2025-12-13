@@ -1,0 +1,82 @@
+---
+const projects = [
+  {
+    name: 'ezmode-games/ctd',
+    description:
+      'A crash reporter for modded games that helps players share crash context with mod creators. Built with modern tools and hosted on 90-days. Create a creator account and see when your mods are causing issues for your players. Self-hostable.',
+    tags: ['rust', 'typescript', 'openapi'],
+  },
+  {
+    name: 'ezmode-games/website',
+    description:
+      'This website. Built with Astro, React, and Tailwind CSS. Fully tested, linted, and documented. Because we practice what we preach.',
+    tags: ['astro', 'react', 'tailwind'],
+  },
+];
+---
+
+<section id="about" class="w-full bg-ez-grey-800">
+    <div class="mx-auto max-w-7xl grid grid-flow-col gap-4 md:gap-8 my-8 md:my-10 lg:my-16 p-4 md:p-6 lg:p-8">
+        <div class="col-span-1">
+            <h2 class="font-display text-3xl font-bold text-white sm:text-4xl md:text-5xl">
+                Building tools for <span class="text-ez-yellow-500">gamers</span>, by gamers
+            </h2>
+            
+            <div class="mt-8 space-y-6">
+                <p>
+                    We're a small team of engineers and gamers, or is it gamers that make a living as engineers? Either way, we are getting tired of how modders are treated. 
+                    So we decided to build things differently.
+                </p>
+                
+                <p>
+                    Our mission is simple: create tools that enhance gaming and modding without the predatory monetization, 
+                    shady data practices, or toxic corporate culture that plagues most of gaming. Creators deserve better. Players deserve better.
+                </p>
+                
+                <p>
+                    We build open source; we do transparent. We're not here to get rich quick or sell your data. We're here to make gaming better for everyone.
+                </p>
+                
+                <p class="font-semibold text-muted-foreground">
+                    Sound good? Stick around. We're just getting started.
+                </p>
+            </div>
+        </div>
+        <div class="col-span-1">
+            <h2 class="font-ui text-3xl font-bold text-ez-yellow-500 sm:text-4xl md:text-5xl">
+                open source
+            </h2>
+           
+            <div class="mt-12 space-y-8">
+                {projects.map((project) => (
+                    <div class="border-2 border-ez-grey-700 bg-ez-grey-900 p-4 transition-colors hover:border-ez-yellow-500 sm:p-6 md:p-8">
+                        <div class="break-all font-mono text-lg font-bold text-white sm:text-xl md:text-2xl">
+                            /{project.name}
+                        </div>
+                        
+                        <div class="mt-2 flex gap-2">
+                            {project.tags.map((tag) => (
+                                <span class="font-mono text-xs text-ez-grey-500">{tag}</span>
+                            ))}
+                        </div>
+                        
+                        <p class="mt-4 font-mono text-sm text-ez-grey-300 sm:text-base">
+                            {project.description}
+                        </p>
+                        
+                        <div class="mt-6">
+                            <a 
+                                href={`https://github.com/${project.name}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="inline-block border-2 border-ez-yellow-500 bg-transparent px-4 py-2 font-ui text-sm font-bold text-ez-yellow-500 transition-colors hover:bg-ez-yellow-500 hover:text-ez-grey-900 sm:px-6 sm:py-3 sm:text-base"
+                            >
+                                VIEW ON GITHUB
+                            </a>
+                        </div>
+                    </div>
+                ))}
+            </div>    
+        </div>
+    </div>
+</section>
