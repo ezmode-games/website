@@ -9,49 +9,48 @@ test.describe('Homepage', () => {
     await page.goto('/');
     await page.waitForLoadState('networkidle');
 
-    await expect(page).toHaveTitle(/EZMode Games/);
+    await expect(page).toHaveTitle(/ezmode\.games/i);
   });
 
-  test('should display the header with logo and navigation', async ({ page }) => {
+  test('should display the hero section with logo', async ({ page }) => {
     await page.goto('/');
 
-    const header = page.getByRole('banner');
-    await expect(header).toBeVisible();
+    // Check logo and brand name are visible
+    await expect(page.getByText('games').first()).toBeVisible();
 
-    // Check navigation links in header
-    await expect(header.getByRole('link', { name: /about/i })).toBeVisible();
-    await expect(header.getByRole('link', { name: /policies/i })).toBeVisible();
-    await expect(header.getByRole('link', { name: /account/i })).toBeVisible();
+    // Check hero text
+    const heroHeading = page.locator('h1').first();
+    await expect(heroHeading).toContainText('We build');
+    await expect(heroHeading).toContainText('tools');
+    await expect(heroHeading).toContainText('modders');
   });
 
-  test('should display about section', async ({ page }) => {
+  test('should display navigation links', async ({ page }) => {
     await page.goto('/');
 
-    const aboutSection = page.locator('#about');
-    await expect(aboutSection).toBeVisible();
-    await expect(aboutSection).toContainText('Building tools for');
-    await expect(aboutSection).toContainText('gamers');
+    // Check GitHub and Discord links in header area
+    await expect(page.getByRole('link', { name: /github/i }).first()).toBeVisible();
+    await expect(page.getByRole('link', { name: /discord/i }).first()).toBeVisible();
   });
 
-  test('should display about section with projects', async ({ page }) => {
+  test('should display CTD section', async ({ page }) => {
     await page.goto('/');
 
-    const aboutSection = page.locator('#about');
-    await expect(aboutSection).toBeVisible();
-    await expect(aboutSection).toContainText('open source');
-
-    // Check for project cards
-    const projectLinks = page.getByRole('link', { name: /VIEW ON GITHUB/i });
-    await expect(projectLinks.first()).toBeVisible();
+    const ctdSection = page.locator('#ctd');
+    await expect(ctdSection).toBeVisible();
+    await expect(ctdSection).toContainText('CTD');
+    await expect(ctdSection).toContainText('Crash Reporter');
   });
 
-  test('should display policies section', async ({ page }) => {
+  test('should display CTD features', async ({ page }) => {
     await page.goto('/');
 
-    const policiesSection = page.locator('#policies');
-    await expect(policiesSection).toBeVisible();
-    await expect(policiesSection).toContainText('Corporate');
-    await expect(policiesSection).toContainText('Anonymous by Default');
+    const ctdSection = page.locator('#ctd');
+
+    // Check feature cards
+    await expect(ctdSection).toContainText('Capture');
+    await expect(ctdSection).toContainText('Share');
+    await expect(ctdSection).toContainText('Pattern');
   });
 
   test('should display footer with links', async ({ page }) => {
@@ -63,25 +62,18 @@ test.describe('Homepage', () => {
     // Check footer links
     await expect(footer.getByRole('link', { name: /GitHub/i })).toBeVisible();
     await expect(footer.getByRole('link', { name: /Discord/i })).toBeVisible();
-    await expect(footer.getByRole('link', { name: /Contact/i })).toBeVisible();
+    await expect(footer.getByRole('link', { name: /How We Operate/i })).toBeVisible();
 
-    // Check copyright
-    await expect(footer).toContainText('EZMode Games');
+    // Check AGPL mention
+    await expect(footer).toContainText('AGPL-3.0');
   });
 
-  test('should navigate to sections using anchor links', async ({ page }) => {
+  test('should navigate to CTD section using scroll link', async ({ page }) => {
     await page.goto('/');
 
-    // Click about link in header
-    await page.getByRole('link', { name: /about/i }).first().click();
-    await expect(page.locator('#about')).toBeInViewport();
-
-    // Click policies link
-    await page
-      .getByRole('link', { name: /policies/i })
-      .first()
-      .click();
-    await expect(page.locator('#policies')).toBeInViewport();
+    // Click scroll indicator
+    await page.getByRole('link', { name: /scroll/i }).click();
+    await expect(page.locator('#ctd')).toBeInViewport();
   });
 
   test('should have proper meta tags', async ({ page }) => {
@@ -96,30 +88,21 @@ test.describe('Homepage', () => {
     await expect(description).toHaveAttribute('content', /.+/);
   });
 
-  test('should display projects with GitHub links', async ({ page }) => {
+  test('should have external links open in new tab', async ({ page }) => {
     await page.goto('/');
 
-    const projectLinks = page.getByRole('link', { name: /VIEW ON GITHUB/i });
-    const count = await projectLinks.count();
-
-    expect(count).toBeGreaterThan(0);
-
-    // Check first project link has proper href
-    const firstLink = projectLinks.first();
-    const href = await firstLink.getAttribute('href');
-    expect(href).toContain('github.com/ezmode-games');
+    // Check GitHub link has target="_blank"
+    const githubLink = page.getByRole('link', { name: /github/i }).first();
+    await expect(githubLink).toHaveAttribute('target', '_blank');
+    await expect(githubLink).toHaveAttribute('rel', /noopener/);
   });
 
   test('should have AGPL license mentioned', async ({ page }) => {
     await page.goto('/');
 
-    // Check footer for license link
-    const licenseLink = page.getByRole('link', { name: /AGPL/i });
-    await expect(licenseLink).toBeVisible();
-
-    // Check policies section for license info
-    const policiesSection = page.locator('#policies');
-    await expect(policiesSection).toContainText('AGPL-3.0');
+    // Check footer for license mention
+    const footer = page.locator('footer');
+    await expect(footer).toContainText('AGPL-3.0');
   });
 
   test('should be responsive on mobile', async ({ page }) => {
@@ -127,8 +110,52 @@ test.describe('Homepage', () => {
     await page.goto('/');
 
     // Check that content is still visible
-    await expect(page.getByRole('banner')).toBeVisible();
-    await expect(page.locator('#about')).toBeVisible();
-    await expect(page.getByRole('contentinfo')).toBeVisible();
+    await expect(page.getByText('games').first()).toBeVisible();
+    await expect(page.locator('#ctd')).toBeVisible();
+    await expect(page.locator('footer')).toBeVisible();
+  });
+});
+
+test.describe('Policies Page', () => {
+  test('should load policies page', async ({ page }) => {
+    await page.goto('/policies');
+    await page.waitForLoadState('networkidle');
+
+    await expect(page).toHaveTitle(/How We Operate/i);
+  });
+
+  test('should display core principles', async ({ page }) => {
+    await page.goto('/policies');
+
+    await expect(page.getByText("Don't be a dick")).toBeVisible();
+    await expect(page.locator('#principles')).toBeVisible();
+  });
+
+  test('should display B-Corp section', async ({ page }) => {
+    await page.goto('/policies');
+
+    await expect(page.locator('#bcorp')).toBeVisible();
+    await expect(page.getByText('B Corporation')).toBeVisible();
+  });
+
+  test('should display code commitment', async ({ page }) => {
+    await page.goto('/policies');
+
+    await expect(page.locator('#code-commitment')).toBeVisible();
+    await expect(page.getByText('donated to the modding community')).toBeVisible();
+  });
+
+  test('should display open source section', async ({ page }) => {
+    await page.goto('/policies');
+
+    await expect(page.locator('#open-source')).toBeVisible();
+    await expect(page.locator('#open-source')).toContainText('AGPL-3.0');
+  });
+
+  test('should navigate from footer to policies', async ({ page }) => {
+    await page.goto('/');
+
+    await page.getByRole('link', { name: /How We Operate/i }).click();
+    await expect(page).toHaveURL(/\/policies/);
   });
 });

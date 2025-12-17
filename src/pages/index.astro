@@ -1,14 +1,15 @@
 ---
-import About from '../components/About.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import PoliciesSection from '../components/PoliciesSection.astro';
+import CTDSection from '../components/CTDSection.astro';
+import FooterSimple from '../components/FooterSimple.astro';
+import Hero from '../components/Hero.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="EZMode Games - Gaming Made Easy" description="Building open source gaming tools with transparency and community first. No corporate BS.">
-	<Header />
-	<About />
-	<PoliciesSection />
-	<Footer />
+<BaseLayout
+	title="ezmode.games - Tools for Modders"
+	description="We build open source tools for modders. CTD crash reporter captures what matters when your game breaks. No corporate BS."
+>
+	<Hero />
+	<CTDSection />
+	<FooterSimple />
 </BaseLayout>

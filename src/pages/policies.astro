@@ -1,0 +1,274 @@
+---
+import FooterSimple from '../components/FooterSimple.astro';
+import Logo from '../components/Logo.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+	title="How We Operate - ezmode.games"
+	description="Our principles, commitments, and the rules we hold ourselves to. We're building a different kind of company."
+>
+	<div class="min-h-screen bg-ez-grey-950">
+		<!-- Header -->
+		<header class="border-b border-ez-grey-800">
+			<div class="mx-auto max-w-4xl px-6 py-6">
+				<a href="/" class="flex items-center gap-3">
+					<Logo class="size-10 text-white" />
+					<span class="font-display text-6xl font-semibold text-ez-yellow-500">games</span>
+				</a>
+			</div>
+		</header>
+
+		<!-- Content -->
+		<main class="mx-auto max-w-4xl px-6 py-16">
+			<h1 class="mb-4 font-display text-4xl font-bold uppercase text-white">How We Operate</h1>
+			<p class="mb-12 font-mono text-sm text-ez-grey-400">
+				The rules we hold ourselves to. Not marketing fluff.
+			</p>
+
+			<!-- Table of Contents -->
+			<nav class="mb-16 border border-ez-grey-800 bg-ez-grey-900 p-6">
+				<h2 class="mb-4 font-ui text-sm font-bold uppercase tracking-wider text-ez-yellow-500">Contents</h2>
+				<ul class="space-y-2 font-mono text-sm">
+					<li><a href="#principles" class="text-ez-grey-400 hover:text-ez-yellow-500">1. Core Principles</a></li>
+					<li><a href="#bcorp" class="text-ez-grey-400 hover:text-ez-yellow-500">2. B-Corp Path</a></li>
+					<li><a href="#code-commitment" class="text-ez-grey-400 hover:text-ez-yellow-500">3. Code Commitment</a></li>
+					<li><a href="#community" class="text-ez-grey-400 hover:text-ez-yellow-500">4. Community First</a></li>
+					<li><a href="#open-source" class="text-ez-grey-400 hover:text-ez-yellow-500">5. Open Source</a></li>
+				</ul>
+			</nav>
+
+			<!-- Core Principles -->
+			<section id="principles" class="mb-16">
+				<h2 class="mb-6 border-b border-ez-grey-800 pb-4 font-display text-2xl font-bold uppercase text-white">
+					1. Core Principles
+				</h2>
+
+				<div class="space-y-8 font-mono text-sm leading-relaxed text-ez-grey-300">
+					<div>
+						<h3 class="mb-3 font-ui text-base font-bold text-ez-yellow-500">The One Rule</h3>
+						<p class="text-2xl font-bold text-white">Don't be a dick.</p>
+						<p class="mt-4 text-ez-grey-400">
+							That's it. Everything else flows from this. Every decision we make, every feature we build,
+							every interaction we have. All filtered through one question: are we being dicks about this?
+						</p>
+					</div>
+
+					<div>
+						<h3 class="mb-3 font-ui text-base font-bold text-white">What That Means in Practice</h3>
+						<ul class="ml-4 list-inside list-disc space-y-2 text-ez-grey-400">
+							<li><span class="text-white">No dark patterns.</span> We don't trick you into anything.</li>
+							<li><span class="text-white">No data harvesting.</span> We collect what we need to make tools work. Nothing more.</li>
+							<li><span class="text-white">No rug pulls.</span> If you build on our stuff, we won't yank it away.</li>
+							<li><span class="text-white">No corporate bullshit.</span> We say what we mean. No lawyer-speak unless legally required.</li>
+							<li><span class="text-white">No punching down.</span> We exist to help the community, not extract from it.</li>
+						</ul>
+					</div>
+
+					<div>
+						<h3 class="mb-3 font-ui text-base font-bold text-white">We're Modders Too</h3>
+						<p class="text-ez-grey-400">
+							We've been in the trenches. We've debugged load orders at 2am. We've had mods break with updates.
+							We've dealt with the frustration of tools that don't work, sites that go down, and projects that get abandoned.
+						</p>
+						<p class="mt-4 text-ez-grey-400">
+							We're building the tools we wished existed. If we ever forget that, call us out.
+						</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- B-Corp Path -->
+			<section id="bcorp" class="mb-16">
+				<h2 class="mb-6 border-b border-ez-grey-800 pb-4 font-display text-2xl font-bold uppercase text-white">
+					2. B-Corp Path
+				</h2>
+
+				<div class="space-y-8 font-mono text-sm leading-relaxed text-ez-grey-300">
+					<div>
+						<h3 class="mb-3 font-ui text-base font-bold text-ez-yellow-500">Why B-Corp?</h3>
+						<p class="text-ez-grey-400">
+							We're on the path to becoming a certified B Corporation. Not because it's trendy,
+							but because it legally binds us to consider impact on workers, community, and environment,
+							not just shareholders.
+						</p>
+						<p class="mt-4 text-ez-grey-400">
+							Traditional corporations are legally obligated to maximize shareholder value.
+							That's how good companies turn bad. B-Corp certification creates legal protection
+							for doing the right thing, even when it's not the most profitable thing.
+						</p>
+					</div>
+
+					<div>
+						<h3 class="mb-3 font-ui text-base font-bold text-white">What This Means</h3>
+						<ul class="ml-4 list-inside list-disc space-y-2 text-ez-grey-400">
+							<li><span class="text-white">Accountability:</span> We'll be measured against rigorous social and environmental standards</li>
+							<li><span class="text-white">Transparency:</span> B-Corps publish their impact reports publicly</li>
+							<li><span class="text-white">Legal protection:</span> Our mission is protected in our corporate charter</li>
+							<li><span class="text-white">Community:</span> We join a network of companies committed to using business as a force for good</li>
+						</ul>
+					</div>
+
+					<div>
+						<h3 class="mb-3 font-ui text-base font-bold text-white">Current Status</h3>
+						<p class="text-ez-grey-400">
+							We're pre-revenue and pre-certification. We're building with B-Corp standards in mind from day one.
+							When we're ready to certify, we won't have to change who we are.
+						</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- Code Commitment -->
+			<section id="code-commitment" class="mb-16">
+				<h2 class="mb-6 border-b border-ez-grey-800 pb-4 font-display text-2xl font-bold uppercase text-white">
+					3. Code Commitment
+				</h2>
+
+				<div class="space-y-8 font-mono text-sm leading-relaxed text-ez-grey-300">
+					<div class="border-2 border-ez-yellow-500 bg-ez-grey-900 p-6">
+						<h3 class="mb-3 font-ui text-base font-bold text-ez-yellow-500">The Promise</h3>
+						<p class="text-white">
+							If ezmode.games shuts down, all code will be donated to the modding community
+							under a permissive open source license.
+						</p>
+					</div>
+
+					<div>
+						<h3 class="mb-3 font-ui text-base font-bold text-white">Why This Matters</h3>
+						<p class="text-ez-grey-400">
+							We've all seen it. A tool you depend on disappears. The developer moves on.
+							The domain expires. Years of work, gone. The community left scrambling.
+						</p>
+						<p class="mt-4 text-ez-grey-400">
+							We refuse to be that story. If we can't keep going, the code goes to someone who can.
+							No sunset notices. No "download it while you can." The work survives.
+						</p>
+					</div>
+
+					<div>
+						<h3 class="mb-3 font-ui text-base font-bold text-white">How We'll Do It</h3>
+						<ul class="ml-4 list-inside list-disc space-y-2 text-ez-grey-400">
+							<li><span class="text-white">Everything is already open source</span> under AGPL-3.0</li>
+							<li><span class="text-white">If we quit:</span> We'll transfer repos to a community organization (like modding groups or a foundation)</li>
+							<li><span class="text-white">Relicense if needed:</span> We'll relicense to MIT/Apache if AGPL creates adoption barriers for the inheritors</li>
+							<li><span class="text-white">Documentation handoff:</span> We'll ensure infrastructure docs, secrets management, and deployment guides are included</li>
+						</ul>
+					</div>
+
+					<div>
+						<h3 class="mb-3 font-ui text-base font-bold text-white">No Exceptions</h3>
+						<p class="text-ez-grey-400">
+							This isn't contingent on how we shut down. Bankruptcy. Acquisition. Boredom. Burnout.
+							Alien invasion. Doesn't matter. The code goes to the community.
+						</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- Community First -->
+			<section id="community" class="mb-16">
+				<h2 class="mb-6 border-b border-ez-grey-800 pb-4 font-display text-2xl font-bold uppercase text-white">
+					4. Community First
+				</h2>
+
+				<div class="space-y-8 font-mono text-sm leading-relaxed text-ez-grey-300">
+					<div>
+						<h3 class="mb-3 font-ui text-base font-bold text-ez-yellow-500">If We Grow</h3>
+						<p class="text-ez-grey-400">
+							If ezmode.games becomes a "real company" (revenue, employees, the whole thing),
+							we commit to making decisions that benefit the gaming and modding community.
+							Not just decisions that benefit us.
+						</p>
+					</div>
+
+					<div>
+						<h3 class="mb-3 font-ui text-base font-bold text-white">What That Looks Like</h3>
+						<ul class="ml-4 list-inside list-disc space-y-2 text-ez-grey-400">
+							<li><span class="text-white">Free tier forever:</span> Core functionality stays free. We won't paywall features after you depend on them.</li>
+							<li><span class="text-white">Community input:</span> Major decisions that affect users get community input before implementation.</li>
+							<li><span class="text-white">Transparent pricing:</span> If we charge for something, you'll know exactly what you're paying for and why.</li>
+							<li><span class="text-white">No vendor lock-in:</span> Export your data. Self-host if you want. We compete on being better, not on trapping you.</li>
+							<li><span class="text-white">Accessible:</span> We build for everyone. Accessibility isn't an afterthought.</li>
+						</ul>
+					</div>
+
+					<div>
+						<h3 class="mb-3 font-ui text-base font-bold text-white">The Long Game</h3>
+						<p class="text-ez-grey-400">
+							We're not here to flip the company in 3 years. We're building something we want to exist
+							for the next decade.
+						</p>
+						<p class="mt-4 text-ez-grey-400">
+							Our B-Corp charter will legally enshrine our commitment to the gaming community.
+							If we ever sell, the new owners inherit those obligations. They can't gut the mission
+							and extract value. The commitment transfers with the company.
+						</p>
+						<p class="mt-4 text-ez-grey-400">
+							We exist to benefit the modding community. That's not a marketing line. It'll be in the legal documents.
+						</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- Open Source -->
+			<section id="open-source" class="mb-16">
+				<h2 class="mb-6 border-b border-ez-grey-800 pb-4 font-display text-2xl font-bold uppercase text-white">
+					5. Open Source
+				</h2>
+
+				<div class="space-y-8 font-mono text-sm leading-relaxed text-ez-grey-300">
+					<div>
+						<h3 class="mb-3 font-ui text-base font-bold text-ez-yellow-500">AGPL-3.0</h3>
+						<p class="text-ez-grey-400">
+							Our code is licensed under AGPL-3.0. This means:
+						</p>
+						<ul class="mt-4 ml-4 list-inside list-disc space-y-2 text-ez-grey-400">
+							<li><span class="text-white">You can view, modify, and use the code</span></li>
+							<li><span class="text-white">You can self-host everything</span> (we provide the docs to do it)</li>
+							<li><span class="text-white">If you modify and deploy it, you share your modifications</span></li>
+						</ul>
+					</div>
+
+					<div>
+						<h3 class="mb-3 font-ui text-base font-bold text-white">Why AGPL?</h3>
+						<p class="text-ez-grey-400">
+							AGPL ensures that if someone takes our work and builds a service on it,
+							they have to share their improvements. It prevents the "embrace, extend, extinguish"
+							playbook that kills open source projects.
+						</p>
+						<p class="mt-4 text-ez-grey-400">
+							For modders using our tools directly: AGPL doesn't affect your mods.
+							You're a user, not a distributor. Mod away.
+						</p>
+					</div>
+
+					<div>
+						<h3 class="mb-3 font-ui text-base font-bold text-white">Contributions</h3>
+						<p class="text-ez-grey-400">
+							We welcome contributions: bug fixes, features, documentation, all of it.
+							Contributors retain copyright on their contributions but grant us a license to use them.
+							Standard CLA stuff, nothing sneaky.
+						</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- Contact -->
+			<section class="border border-ez-grey-800 bg-ez-grey-900 p-6">
+				<h2 class="mb-4 font-ui text-sm font-bold uppercase tracking-wider text-ez-yellow-500">Hold Us Accountable</h2>
+				<p class="font-mono text-sm text-ez-grey-400">
+					If we're not living up to these commitments, tell us.
+					<a href="https://discord.gg/XJx4mYQZ" class="text-ez-yellow-500 hover:underline">Discord</a>,
+					<a href="https://github.com/ezmode-games" class="text-ez-yellow-500 hover:underline">GitHub</a>,
+					or email <a href="mailto:da.fuk@ezmode.games" class="text-ez-yellow-500 hover:underline">da.fuk@ezmode.games</a>.
+				</p>
+				<p class="mt-4 font-mono text-xs text-ez-grey-500">
+					We'd rather be called out than become what we set out to replace.
+				</p>
+			</section>
+		</main>
+	</div>
+
+	<FooterSimple />
+</BaseLayout>
