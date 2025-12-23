@@ -53,6 +53,36 @@ test.describe('Homepage', () => {
     await expect(ctdSection).toContainText('Pattern');
   });
 
+  test('should display supported games for CTD', async ({ page }) => {
+    await page.goto('/');
+
+    const ctdSection = page.locator('#ctd');
+
+    // Check supported games
+    await expect(ctdSection).toContainText('Skyrim SE');
+    await expect(ctdSection).toContainText('Cyberpunk 2077');
+  });
+
+  test('should display Ferritest section', async ({ page }) => {
+    await page.goto('/');
+
+    const ferritestSection = page.locator('#ferritest');
+    await expect(ferritestSection).toBeVisible();
+    await expect(ferritestSection).toContainText('Ferritest');
+    await expect(ferritestSection).toContainText('Memory Stress Test');
+  });
+
+  test('should display Ferritest features', async ({ page }) => {
+    await page.goto('/');
+
+    const ferritestSection = page.locator('#ferritest');
+
+    // Check feature cards
+    await expect(ferritestSection).toContainText('Fast');
+    await expect(ferritestSection).toContainText('Thorough');
+    await expect(ferritestSection).toContainText('Configurable');
+  });
+
   test('should display footer with links', async ({ page }) => {
     await page.goto('/');
 

@@ -1,5 +1,6 @@
 ---
 import CTDSection from '../components/CTDSection.astro';
+import FerritestSection from '../components/FerritestSection.astro';
 import FooterSimple from '../components/FooterSimple.astro';
 import Hero from '../components/Hero.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -7,9 +8,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout
 	title="ezmode.games - Tools for Modders"
-	description="We build open source tools for modders. CTD crash reporter captures what matters when your game breaks. No corporate BS."
+	description="We build open source tools for modders. CTD crash reporter and Ferritest memory stress testing. No corporate BS."
 >
 	<Hero />
 	<CTDSection />
+	<FerritestSection />
 	<FooterSimple />
 </BaseLayout>
