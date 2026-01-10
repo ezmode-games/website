@@ -3,22 +3,22 @@ const features = [
   {
     title: 'Fast',
     description:
-      '1GB baseline test in under a minute. Eight threads. No waiting around while your game sits broken.',
+      'Rule out bad RAM in under a minute. Multi-threaded. No waiting around while your game sits broken.',
     icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z',
     color: 'green' as const,
   },
   {
-    title: 'Thorough',
+    title: 'RAM + VRAM',
     description:
-      'Eight detection patterns catch what basic tests miss. Walking ones, random data, block moves. The works.',
-    icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
+      'Tests both system memory and GPU VRAM. Compute shaders hammer your graphics card. Eight patterns catch what basic tests miss.',
+    icon: 'M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z',
     color: 'yellow' as const,
   },
   {
-    title: 'Configurable',
+    title: 'Scriptable',
     description:
-      'Test specific amounts, run longer stress tests, adjust thread count. Your hardware, your rules.',
-    icon: 'M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4',
+      'Exit code 0 for pass, 1 for fail. Integrate into your mod debugging workflow. Automate the boring stuff.',
+    icon: 'M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z',
     color: 'red' as const,
   },
 ];
@@ -72,9 +72,9 @@ const colorClasses = {
 
 			<div class="flex flex-col justify-end">
 				<p class="border-l-4 border-ez-grey-500 pl-6 font-mono text-base leading-relaxed text-ez-grey-100 sm:text-lg">
-					Before you spend three hours bisecting your mod list, spend one minute checking your RAM.
-					Bad memory causes random crashes that look exactly like mod conflicts. Ferritest hammers
-					your memory with eight detection patterns and tells you if your hardware is lying to you.
+					Before you spend three hours bisecting your mod list, spend one minute checking your hardware.
+					Bad RAM and VRAM cause random crashes that look exactly like mod conflicts. Ferritest hammers
+					both with eight detection patterns and tells you if your hardware is lying to you.
 				</p>
 				<p class="mt-4 pl-6 font-mono text-sm text-ez-grey-500">
 					Rule out the hardware. Then blame the mods.

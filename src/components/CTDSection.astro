@@ -1,4 +1,79 @@
 ---
+import GameCard from './GameCard.astro';
+
+/** Status from the CTD repo status.json */
+interface GameStatus {
+  name: string;
+  game: string;
+  status: 'scaffolding' | 'alpha' | 'beta' | 'stable';
+  version: string | null;
+  build_type: string;
+  quality: 'scaffolding' | 'experimental' | 'good' | 'stable';
+  features: string[];
+  published: {
+    github: string | null;
+    nexus: string | null;
+    ezmode: string | null;
+  };
+}
+
+interface CtdStatus {
+  mods: Record<string, GameStatus>;
+}
+
+/** Transformed game data for display */
+interface GameDisplayData {
+  id: string;
+  name: string;
+  status: 'live' | 'alpha' | 'coming-soon';
+  description: string;
+  githubUrl: string | null;
+}
+
+const STATUS_JSON_URL = 'https://raw.githubusercontent.com/ezmode-games/ctd/main/status.json';
+
+/** Map status.json data to display format */
+function transformGameStatus(id: string, game: GameStatus): GameDisplayData {
+  const statusMap: Record<string, 'live' | 'alpha' | 'coming-soon'> = {
+    beta: 'live',
+    stable: 'live',
+    alpha: 'alpha',
+    scaffolding: 'coming-soon',
+  };
+
+  const descriptionMap: Record<string, string> = {
+    live: `${game.version ? `v${game.version}` : 'Available'}. Go break things.`,
+    alpha: `${game.version ? `v${game.version}` : 'Alpha'}. Experimental but functional.`,
+    'coming-soon': 'Planned. Stay tuned.',
+  };
+
+  const displayStatus = statusMap[game.status] ?? 'coming-soon';
+
+  return {
+    id,
+    name: game.game,
+    status: displayStatus,
+    description: descriptionMap[displayStatus],
+    githubUrl: game.published.github,
+  };
+}
+
+/** Sort games: live first, then alpha, then coming-soon */
+function sortGames(games: GameDisplayData[]): GameDisplayData[] {
+  const order = { live: 0, alpha: 1, 'coming-soon': 2 };
+  return [...games].sort((a, b) => order[a.status] - order[b.status]);
+}
+
+// Fetch game status at build time
+let games: GameDisplayData[] = [];
+try {
+  const response = await fetch(STATUS_JSON_URL);
+  const ctdStatus: CtdStatus = await response.json();
+  // Filter out UE5 generic - it's not a specific game
+  const filteredMods = Object.entries(ctdStatus.mods).filter(([id]) => id !== 'ue5');
+  games = sortGames(filteredMods.map(([id, game]) => transformGameStatus(id, game)));
+} catch (error) {}
+
 const features = [
   {
     title: 'Capture',
@@ -173,22 +248,21 @@ const colorClasses = {
 			</div>
 		</div>
 
-		<!-- Supported games teaser -->
-		<div class="mt-16 text-center">
-			<p class="mb-6 font-ui text-sm uppercase tracking-wider text-ez-grey-500">Launching with</p>
-			<div class="flex flex-wrap items-center justify-center gap-8">
-				<div class="flex items-center gap-3 text-ez-grey-400">
-					<div class="h-px w-8 bg-ez-red-700"></div>
-					<span class="font-ui text-lg font-medium uppercase">Skyrim SE</span>
-					<div class="h-px w-8 bg-ez-red-700"></div>
-				</div>
-				<div class="flex items-center gap-3 text-ez-grey-400">
-					<div class="h-px w-8 bg-ez-yellow-500"></div>
-					<span class="font-ui text-lg font-medium uppercase">Cyberpunk 2077</span>
-					<div class="h-px w-8 bg-ez-yellow-500"></div>
+		<!-- Supported games - dynamically fetched from CTD status.json -->
+		{games.length > 0 && (
+			<div class="mt-16">
+				<p class="mb-8 text-center font-ui text-sm uppercase tracking-wider text-ez-grey-500">Supported Games</p>
+				<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+					{games.map((game) => (
+						<GameCard
+							name={game.name}
+							status={game.status}
+							description={game.description}
+							githubUrl={game.githubUrl}
+						/>
+					))}
 				</div>
 			</div>
-			<p class="mt-4 font-mono text-xs text-ez-grey-600">Fallout 4, New Vegas, and more coming soon</p>
-		</div>
+		)}
 	</div>
 </section>

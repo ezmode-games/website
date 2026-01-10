@@ -58,9 +58,50 @@ test.describe('Homepage', () => {
 
     const ctdSection = page.locator('#ctd');
 
-    // Check supported games
-    await expect(ctdSection).toContainText('Skyrim SE');
-    await expect(ctdSection).toContainText('Cyberpunk 2077');
+    // Check supported games section header
+    await expect(ctdSection).toContainText('Supported Games');
+
+    // Check that at least one game card is rendered (dynamically fetched from status.json)
+    const gameCards = ctdSection.locator('[class*="border-4"][class*="p-6"]').filter({
+      has: page.locator('.font-ui.uppercase.tracking-wider'),
+    });
+    await expect(gameCards.first()).toBeVisible();
+
+    // Verify known games from status.json are displayed
+    await expect(ctdSection).toContainText('Skyrim');
+    await expect(ctdSection).toContainText('Cyberpunk');
+  });
+
+  test('should display game status indicators in CTD section', async ({ page }) => {
+    await page.goto('/');
+
+    const ctdSection = page.locator('#ctd');
+
+    // Game cards should have status-appropriate styling (green for live, yellow for alpha, grey for coming-soon)
+    // At minimum, we expect Skyrim to be live (green border)
+    const liveGameCard = ctdSection.locator('[class*="border-ez-green-500"]').filter({
+      hasText: 'Skyrim',
+    });
+    await expect(liveGameCard).toBeVisible();
+
+    // Each game card should have a description
+    const gameDescriptions = ctdSection.locator('.font-mono.text-sm.text-ez-grey-400');
+    expect(await gameDescriptions.count()).toBeGreaterThan(0);
+  });
+
+  test('should display GitHub download links for available games', async ({ page }) => {
+    await page.goto('/');
+
+    const ctdSection = page.locator('#ctd');
+
+    // Live games should have GitHub download links
+    const downloadLinks = ctdSection.getByRole('link', { name: /Download/i });
+    expect(await downloadLinks.count()).toBeGreaterThan(0);
+
+    // Download links should open in new tab
+    const firstDownloadLink = downloadLinks.first();
+    await expect(firstDownloadLink).toHaveAttribute('target', '_blank');
+    await expect(firstDownloadLink).toHaveAttribute('rel', /noopener/);
   });
 
   test('should display Ferritest section', async ({ page }) => {
@@ -79,8 +120,8 @@ test.describe('Homepage', () => {
 
     // Check feature cards
     await expect(ferritestSection).toContainText('Fast');
-    await expect(ferritestSection).toContainText('Thorough');
-    await expect(ferritestSection).toContainText('Configurable');
+    await expect(ferritestSection).toContainText('RAM + VRAM');
+    await expect(ferritestSection).toContainText('Scriptable');
   });
 
   test('should display footer with links', async ({ page }) => {
