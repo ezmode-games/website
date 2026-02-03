@@ -1,0 +1,186 @@
+---
+import FooterSimple from '../components/FooterSimple.astro';
+import Logo from '../components/Logo.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const projects = [
+  {
+    name: 'CTD',
+    tagline: 'Crash Reporter',
+    description:
+      'When your modded game crashes, CTD captures the context. Stack trace, load order, game version. Share it with mod creators so they can actually help.',
+    license: 'AGPL-3.0',
+    tech: ['Rust', 'TypeScript', 'Hono'],
+    github: 'https://github.com/ezmode-games/ctd',
+    website: 'https://ctd.ezmode.games',
+    color: 'red',
+  },
+  {
+    name: 'Ferritest',
+    tagline: 'Memory Stress Test',
+    description:
+      'Before you spend three hours bisecting your mod list, spend one minute checking your hardware. Tests RAM and VRAM with eight detection patterns.',
+    license: 'MIT',
+    tech: ['Rust', 'Compute Shaders'],
+    github: 'https://github.com/ezmode-games/ferritest',
+    website: null,
+    color: 'green',
+  },
+  {
+    name: 'Phantom-Zone',
+    tagline: 'Form Generation',
+    description:
+      'Generates type-safe React forms from Zod schemas. Non-technical users configure forms in a visual builder. System outputs full React components with TanStack Form.',
+    license: 'MIT',
+    tech: ['TypeScript', 'React', 'Zod'],
+    github: 'https://github.com/ezmode-games/phantom-zone',
+    website: null,
+    color: 'yellow',
+  },
+  {
+    name: 'Rafters',
+    tagline: 'Design Intelligence',
+    description:
+      'Encodes design taste as structured data for AI agents. Cognitive load budgets, color science, typography hierarchies. Feed it to LLMs, get output that looks designed.',
+    license: 'MIT',
+    tech: ['TypeScript'],
+    github: 'https://github.com/ezmode-games/rafters',
+    website: 'https://rafters.studio',
+    color: 'yellow',
+  },
+];
+
+const colorClasses = {
+  red: {
+    border: 'border-ez-red-700',
+    bg: 'bg-ez-red-700/10',
+    text: 'text-ez-red-500',
+    hover: 'hover:border-ez-red-600',
+  },
+  yellow: {
+    border: 'border-ez-yellow-500',
+    bg: 'bg-ez-yellow-500/10',
+    text: 'text-ez-yellow-500',
+    hover: 'hover:border-ez-yellow-400',
+  },
+  green: {
+    border: 'border-ez-green-500',
+    bg: 'bg-ez-green-500/10',
+    text: 'text-ez-green-500',
+    hover: 'hover:border-ez-green-400',
+  },
+};
+---
+
+<BaseLayout
+	title="Open Source - ezmode.games"
+	description="Open source tools for gaming communities. CTD crash reporter, Ferritest memory testing, Phantom-Zone form generation, Rafters design intelligence."
+>
+	<div class="min-h-screen bg-ez-grey-950">
+		<!-- Header -->
+		<header class="border-b border-ez-grey-800">
+			<div class="mx-auto max-w-4xl px-6 py-6">
+				<a href="/" class="flex items-center gap-3">
+					<Logo class="size-10 text-white" />
+					<span class="font-display text-6xl font-semibold text-ez-yellow-500">games</span>
+				</a>
+			</div>
+		</header>
+
+		<!-- Content -->
+		<main class="mx-auto max-w-4xl px-6 py-16">
+			<h1 class="mb-4 font-display text-4xl font-bold uppercase text-white">Open Source</h1>
+			<p class="mb-12 font-mono text-sm text-ez-grey-400">
+				Tools we build. Tools we share. No strings attached.
+			</p>
+
+			<!-- Projects -->
+			<div class="space-y-8">
+				{projects.map((project) => {
+					const colors = colorClasses[project.color as keyof typeof colorClasses];
+					return (
+						<div class:list={[
+							'border-4 p-6 transition-colors sm:p-8',
+							colors.border,
+							colors.bg,
+							colors.hover,
+						]}>
+							<div class="mb-4 flex flex-wrap items-start justify-between gap-4">
+								<div>
+									<h2 class="font-display text-2xl font-bold uppercase text-white">
+										{project.name}
+									</h2>
+									<p class:list={['font-ui text-sm uppercase tracking-wider', colors.text]}>
+										{project.tagline}
+									</p>
+								</div>
+								<span class="inline-flex items-center border-2 border-ez-grey-700 bg-ez-grey-800 px-3 py-1 font-mono text-xs text-ez-grey-400">
+									{project.license}
+								</span>
+							</div>
+
+							<p class="mb-6 font-mono text-sm leading-relaxed text-ez-grey-300">
+								{project.description}
+							</p>
+
+							<div class="mb-6 flex flex-wrap gap-2">
+								{project.tech.map((tech) => (
+									<span class="border-2 border-ez-grey-700 bg-ez-grey-900 px-2 py-1 font-mono text-xs text-ez-grey-500">
+										{tech}
+									</span>
+								))}
+							</div>
+
+							<div class="flex flex-wrap gap-3">
+								<a
+									href={project.github}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="inline-flex items-center gap-2 border-2 border-ez-grey-600 bg-transparent px-4 py-2 font-ui text-sm uppercase tracking-wider text-ez-grey-400 transition-all hover:border-ez-grey-500 hover:bg-ez-grey-800 hover:text-white"
+								>
+									<svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+									Source
+								</a>
+								{project.website && (
+									<a
+										href={project.website}
+										target="_blank"
+										rel="noopener noreferrer"
+										class:list={[
+											'inline-flex items-center gap-2 border-2 px-4 py-2 font-ui text-sm uppercase tracking-wider transition-all',
+											colors.border,
+											colors.text,
+											'hover:bg-ez-grey-800',
+										]}
+									>
+										<svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+											<path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+										</svg>
+										Website
+									</a>
+								)}
+							</div>
+						</div>
+					);
+				})}
+			</div>
+
+			<!-- Philosophy -->
+			<section class="mt-16 border border-ez-grey-800 bg-ez-grey-900 p-6">
+				<h2 class="mb-4 font-ui text-sm font-bold uppercase tracking-wider text-ez-yellow-500">Why Open Source</h2>
+				<p class="font-mono text-sm text-ez-grey-400">
+					We've all depended on tools that disappeared. Developer moved on. Domain expired. Years of work, gone.
+				</p>
+				<p class="mt-4 font-mono text-sm text-ez-grey-400">
+					Our tools are open source so they can outlive us. Fork them. Self-host them. Improve them.
+					The work survives.
+				</p>
+				<p class="mt-4 font-mono text-xs text-ez-grey-500">
+					See our full commitment: <a href="/policies#open-source" class="text-ez-yellow-500 hover:underline">/policies#open-source</a>
+				</p>
+			</section>
+		</main>
+	</div>
+
+	<FooterSimple />
+</BaseLayout>
