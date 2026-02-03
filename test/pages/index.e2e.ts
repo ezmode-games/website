@@ -133,6 +133,7 @@ test.describe('Homepage', () => {
     // Check footer links
     await expect(footer.getByRole('link', { name: /GitHub/i })).toBeVisible();
     await expect(footer.getByRole('link', { name: /Discord/i })).toBeVisible();
+    await expect(footer.getByRole('link', { name: /Open Source/i })).toBeVisible();
     await expect(footer.getByRole('link', { name: /How We Operate/i })).toBeVisible();
 
     // Check AGPL mention
@@ -228,5 +229,123 @@ test.describe('Policies Page', () => {
 
     await page.getByRole('link', { name: /How We Operate/i }).click();
     await expect(page).toHaveURL(/\/policies/);
+  });
+
+  test('should display MIT license section', async ({ page }) => {
+    await page.goto('/policies#open-source');
+
+    const openSourceSection = page.locator('#open-source');
+    await expect(openSourceSection).toContainText('MIT');
+    await expect(openSourceSection).toContainText('Ferritest');
+    await expect(openSourceSection).toContainText('Phantom-Zone');
+    await expect(openSourceSection).toContainText('Rafters');
+    await expect(openSourceSection).toContainText('Why Two Licenses');
+  });
+});
+
+test.describe('Open Source Page', () => {
+  test('should load OSS page', async ({ page }) => {
+    await page.goto('/oss');
+    await page.waitForLoadState('networkidle');
+
+    await expect(page).toHaveTitle(/Open Source/i);
+  });
+
+  test('should display all four projects', async ({ page }) => {
+    await page.goto('/oss');
+
+    await expect(page.getByRole('heading', { name: 'CTD' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Ferritest' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Phantom-Zone' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Rafters' })).toBeVisible();
+  });
+
+  test('should display project taglines', async ({ page }) => {
+    await page.goto('/oss');
+
+    await expect(page.getByText('Crash Reporter')).toBeVisible();
+    await expect(page.getByText('Memory Stress Test')).toBeVisible();
+    await expect(page.getByText('Form Generation')).toBeVisible();
+    await expect(page.getByText('Design Intelligence')).toBeVisible();
+  });
+
+  test('should display correct licenses', async ({ page }) => {
+    await page.goto('/oss');
+
+    const main = page.locator('main');
+
+    // CTD is AGPL-3.0, others are MIT
+    await expect(main.getByText('AGPL-3.0')).toBeVisible();
+    const mitBadges = main.getByText('MIT', { exact: true });
+    expect(await mitBadges.count()).toBe(3);
+  });
+
+  test('should have GitHub source links for all projects', async ({ page }) => {
+    await page.goto('/oss');
+
+    const main = page.locator('main');
+    const sourceLinks = main.getByRole('link', { name: /^Source$/i });
+    expect(await sourceLinks.count()).toBe(4);
+
+    // All source links should point to GitHub
+    for (const link of await sourceLinks.all()) {
+      await expect(link).toHaveAttribute('href', /github\.com\/ezmode-games/);
+      await expect(link).toHaveAttribute('target', '_blank');
+    }
+  });
+
+  test('should have website links where applicable', async ({ page }) => {
+    await page.goto('/oss');
+
+    // CTD and Rafters have websites
+    const websiteLinks = page.getByRole('link', { name: /Website/i });
+    expect(await websiteLinks.count()).toBe(2);
+
+    // Check CTD website
+    await expect(page.getByRole('link', { name: /Website/i }).first()).toHaveAttribute(
+      'href',
+      'https://ctd.ezmode.games',
+    );
+  });
+
+  test('should display tech stacks', async ({ page }) => {
+    await page.goto('/oss');
+
+    const main = page.locator('main');
+
+    // Tech badges are exact matches in span elements
+    await expect(main.getByText('Rust', { exact: true }).first()).toBeVisible();
+    await expect(main.getByText('TypeScript', { exact: true }).first()).toBeVisible();
+    await expect(main.getByText('React', { exact: true })).toBeVisible();
+    await expect(main.getByText('Zod', { exact: true })).toBeVisible();
+  });
+
+  test('should display Why Open Source section', async ({ page }) => {
+    await page.goto('/oss');
+
+    await expect(page.getByText('Why Open Source')).toBeVisible();
+    await expect(page.getByText('Fork them. Self-host them. Improve them.')).toBeVisible();
+  });
+
+  test('should link to policies page', async ({ page }) => {
+    await page.goto('/oss');
+
+    const policyLink = page.getByRole('link', { name: /\/policies#open-source/i });
+    await expect(policyLink).toBeVisible();
+  });
+
+  test('should navigate from footer to OSS page', async ({ page }) => {
+    await page.goto('/');
+
+    await page.getByRole('link', { name: /Open Source/i }).click();
+    await expect(page).toHaveURL(/\/oss/);
+  });
+
+  test('should be responsive on mobile', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 667 });
+    await page.goto('/oss');
+
+    await expect(page.getByRole('heading', { name: 'CTD' })).toBeVisible();
+    await expect(page.locator('footer')).toBeVisible();
   });
 });
