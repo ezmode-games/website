@@ -239,6 +239,7 @@ test.describe('Policies Page', () => {
     await expect(openSourceSection).toContainText('Ferritest');
     await expect(openSourceSection).toContainText('Phantom-Zone');
     await expect(openSourceSection).toContainText('Rafters');
+    await expect(openSourceSection).toContainText('Smuggler');
     await expect(openSourceSection).toContainText('Why Two Licenses');
   });
 });
@@ -251,13 +252,14 @@ test.describe('Open Source Page', () => {
     await expect(page).toHaveTitle(/Open Source/i);
   });
 
-  test('should display all four projects', async ({ page }) => {
+  test('should display all five projects', async ({ page }) => {
     await page.goto('/oss');
 
     await expect(page.getByRole('heading', { name: 'CTD' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Ferritest' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Phantom-Zone' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Rafters' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Smuggler' })).toBeVisible();
   });
 
   test('should display project taglines', async ({ page }) => {
@@ -267,6 +269,7 @@ test.describe('Open Source Page', () => {
     await expect(page.getByText('Memory Stress Test')).toBeVisible();
     await expect(page.getByText('Form Generation')).toBeVisible();
     await expect(page.getByText('Design Intelligence')).toBeVisible();
+    await expect(page.getByText('D1 Data Migration')).toBeVisible();
   });
 
   test('should display correct licenses', async ({ page }) => {
@@ -277,7 +280,7 @@ test.describe('Open Source Page', () => {
     // CTD is AGPL-3.0, others are MIT
     await expect(main.getByText('AGPL-3.0')).toBeVisible();
     const mitBadges = main.getByText('MIT', { exact: true });
-    expect(await mitBadges.count()).toBe(3);
+    expect(await mitBadges.count()).toBe(4);
   });
 
   test('should have GitHub source links for all projects', async ({ page }) => {
@@ -285,7 +288,7 @@ test.describe('Open Source Page', () => {
 
     const main = page.locator('main');
     const sourceLinks = main.getByRole('link', { name: /^Source$/i });
-    expect(await sourceLinks.count()).toBe(4);
+    expect(await sourceLinks.count()).toBe(5);
 
     // All source links should point to GitHub
     for (const link of await sourceLinks.all()) {
@@ -318,6 +321,8 @@ test.describe('Open Source Page', () => {
     await expect(main.getByText('TypeScript', { exact: true }).first()).toBeVisible();
     await expect(main.getByText('React', { exact: true })).toBeVisible();
     await expect(main.getByText('Zod', { exact: true })).toBeVisible();
+    await expect(main.getByText('SQLite', { exact: true })).toBeVisible();
+    await expect(main.getByText('Cloudflare D1', { exact: true })).toBeVisible();
   });
 
   test('should display Why Open Source section', async ({ page }) => {
