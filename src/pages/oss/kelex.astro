@@ -16,7 +16,7 @@ const codeDefineSchema = `<span class="${kw}">import</span> { z } <span class="$
   message: z.string().min(<span class="${num}">10</span>).max(<span class="${num}">500</span>),
 });`;
 
-const codeIntrospect = `<span class="${kw}">import</span> { introspect } <span class="${kw}">from</span> <span class="${str}">"kelex"</span>;
+const codeIntrospect = `<span class="${kw}">import</span> { introspect } <span class="${kw}">from</span> <span class="${str}">"@ezmode-games/kelex"</span>;
 
 <span class="${kw}">const</span> descriptor = introspect(contactSchema, {
   schemaExportName: <span class="${str}">"contactSchema"</span>,
@@ -27,7 +27,7 @@ const codeIntrospect = `<span class="${kw}">import</span> { introspect } <span c
 <span class="${cmt}">// Each field has: name, label, type, isOptional,</span>
 <span class="${cmt}">// isNullable, constraints, metadata</span>`;
 
-const codeGenerate = `<span class="${kw}">import</span> { generate } <span class="${kw}">from</span> <span class="${str}">"kelex"</span>;
+const codeGenerate = `<span class="${kw}">import</span> { generate } <span class="${kw}">from</span> <span class="${str}">"@ezmode-games/kelex"</span>;
 
 <span class="${kw}">const</span> result = generate({
   form: descriptor,
@@ -36,14 +36,14 @@ const codeGenerate = `<span class="${kw}">import</span> { generate } <span class
 
 <span class="${cmt}">// result.code: string (full .tsx file contents)</span>`;
 
-const codeResolve = `<span class="${kw}">import</span> { resolveField, defaultMappingRules } <span class="${kw}">from</span> <span class="${str}">"kelex"</span>;
+const codeResolve = `<span class="${kw}">import</span> { resolveField, defaultMappingRules } <span class="${kw}">from</span> <span class="${str}">"@ezmode-games/kelex"</span>;
 
 <span class="${kw}">const</span> config = resolveField(field, defaultMappingRules());
 
 <span class="${cmt}">// config.componentType: "input" | "select" | "checkbox" | ...</span>
 <span class="${cmt}">// config.props: Record&lt;string, unknown&gt;</span>`;
 
-const codeWriteSchema = `<span class="${kw}">import</span> { writeSchema } <span class="${kw}">from</span> <span class="${str}">"kelex"</span>;
+const codeWriteSchema = `<span class="${kw}">import</span> { writeSchema } <span class="${kw}">from</span> <span class="${str}">"@ezmode-games/kelex"</span>;
 
 <span class="${kw}">const</span> result = writeSchema({
   form: descriptor,
@@ -141,7 +141,7 @@ const codeFullExample = `<span class="${kw}">import</span> { z } <span class="${
 				<!-- Install -->
 				<div class="flex flex-wrap gap-3">
 					<div class="border-2 border-ez-yellow-500 bg-ez-yellow-500/10 px-4 py-2">
-						<code class="font-mono text-sm text-ez-yellow-500">pnpm add kelex</code>
+						<code class="font-mono text-sm text-ez-yellow-500">pnpm add @ezmode-games/kelex</code>
 					</div>
 					<a
 						href="https://github.com/ezmode-games/kelex"
@@ -153,7 +153,7 @@ const codeFullExample = `<span class="${kw}">import</span> { z } <span class="${
 						Source
 					</a>
 					<a
-						href="https://www.npmjs.com/package/kelex"
+						href="https://www.npmjs.com/package/@ezmode-games/kelex"
 						target="_blank"
 						rel="noopener noreferrer"
 						class="inline-flex items-center gap-2 border-2 border-ez-grey-600 bg-transparent px-4 py-2 font-ui text-sm uppercase tracking-wider text-ez-grey-400 transition-all hover:border-ez-grey-500 hover:bg-ez-grey-800 hover:text-white"
@@ -212,7 +212,7 @@ const codeFullExample = `<span class="${kw}">import</span> { z } <span class="${
 
 					<div>
 						<h3 class="mb-3 font-ui text-base font-bold text-white">Install</h3>
-						<pre class="border border-ez-grey-800 bg-ez-grey-900 p-4"><code class="text-ez-grey-300">pnpm add kelex</code></pre>
+						<pre class="border border-ez-grey-800 bg-ez-grey-900 p-4"><code class="text-ez-grey-300">pnpm add @ezmode-games/kelex</code></pre>
 					</div>
 
 					<div>
