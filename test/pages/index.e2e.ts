@@ -300,9 +300,9 @@ test.describe('Open Source Page', () => {
   test('should have website links where applicable', async ({ page }) => {
     await page.goto('/oss');
 
-    // CTD and Rafters have websites
+    // CTD, Phantom-Zone, and Rafters have websites
     const websiteLinks = page.getByRole('link', { name: /Website/i });
-    expect(await websiteLinks.count()).toBe(2);
+    expect(await websiteLinks.count()).toBe(3);
 
     // Check CTD website
     await expect(page.getByRole('link', { name: /Website/i }).first()).toHaveAttribute(
