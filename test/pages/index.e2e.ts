@@ -237,7 +237,7 @@ test.describe('Policies Page', () => {
     const openSourceSection = page.locator('#open-source');
     await expect(openSourceSection).toContainText('MIT');
     await expect(openSourceSection).toContainText('Ferritest');
-    await expect(openSourceSection).toContainText('Phantom-Zone');
+    await expect(openSourceSection).toContainText('Kelex');
     await expect(openSourceSection).toContainText('Rafters');
     await expect(openSourceSection).toContainText('Smuggler');
     await expect(openSourceSection).toContainText('Why Two Licenses');
@@ -257,7 +257,7 @@ test.describe('Open Source Page', () => {
 
     await expect(page.getByRole('heading', { name: 'CTD' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Ferritest' })).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'Phantom-Zone' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Kelex' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Rafters' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Smuggler' })).toBeVisible();
   });
@@ -300,7 +300,7 @@ test.describe('Open Source Page', () => {
   test('should have website links where applicable', async ({ page }) => {
     await page.goto('/oss');
 
-    // CTD, Phantom-Zone, and Rafters have websites
+    // CTD, Kelex, and Rafters have websites
     const websiteLinks = page.getByRole('link', { name: /Website/i });
     expect(await websiteLinks.count()).toBe(3);
 
