@@ -252,13 +252,14 @@ test.describe('Open Source Page', () => {
     await expect(page).toHaveTitle(/Open Source/i);
   });
 
-  test('should display all five projects', async ({ page }) => {
+  test('should display all six projects', async ({ page }) => {
     await page.goto('/oss');
 
     await expect(page.getByRole('heading', { name: 'CTD' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Ferritest' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Kelex' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Rafters' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Drizzle Ledger' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Smuggler' })).toBeVisible();
   });
 
@@ -269,6 +270,7 @@ test.describe('Open Source Page', () => {
     await expect(page.getByText('Memory Stress Test')).toBeVisible();
     await expect(page.getByText('Form Generation')).toBeVisible();
     await expect(page.getByText('Design Intelligence')).toBeVisible();
+    await expect(page.getByText('Soft-Delete + Audit + GDPR')).toBeVisible();
     await expect(page.getByText('D1 Data Migration')).toBeVisible();
   });
 
@@ -280,7 +282,7 @@ test.describe('Open Source Page', () => {
     // CTD is AGPL-3.0, others are MIT
     await expect(main.getByText('AGPL-3.0')).toBeVisible();
     const mitBadges = main.getByText('MIT', { exact: true });
-    expect(await mitBadges.count()).toBe(4);
+    expect(await mitBadges.count()).toBe(5);
   });
 
   test('should have GitHub source links for all projects', async ({ page }) => {
@@ -288,7 +290,7 @@ test.describe('Open Source Page', () => {
 
     const main = page.locator('main');
     const sourceLinks = main.getByRole('link', { name: /^Source$/i });
-    expect(await sourceLinks.count()).toBe(5);
+    expect(await sourceLinks.count()).toBe(6);
 
     // All source links should point to GitHub
     for (const link of await sourceLinks.all()) {
@@ -300,9 +302,9 @@ test.describe('Open Source Page', () => {
   test('should have website links where applicable', async ({ page }) => {
     await page.goto('/oss');
 
-    // CTD, Kelex, and Rafters have websites
+    // CTD, Kelex, Rafters, and Drizzle Ledger have websites
     const websiteLinks = page.getByRole('link', { name: /Website/i });
-    expect(await websiteLinks.count()).toBe(3);
+    expect(await websiteLinks.count()).toBe(4);
 
     // Check CTD website
     await expect(page.getByRole('link', { name: /Website/i }).first()).toHaveAttribute(
