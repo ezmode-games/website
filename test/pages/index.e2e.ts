@@ -302,9 +302,9 @@ test.describe('Open Source Page', () => {
   test('should have website links where applicable', async ({ page }) => {
     await page.goto('/oss');
 
-    // CTD, Kelex, Rafters, and Drizzle Ledger have websites
+    // CTD, Kelex, Rafters, Drizzle Ledger, and Smuggler have websites
     const websiteLinks = page.getByRole('link', { name: /Website/i });
-    expect(await websiteLinks.count()).toBe(4);
+    expect(await websiteLinks.count()).toBe(5);
 
     // Check CTD website
     await expect(page.getByRole('link', { name: /Website/i }).first()).toHaveAttribute(

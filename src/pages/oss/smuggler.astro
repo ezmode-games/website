@@ -1,0 +1,385 @@
+---
+import FooterSimple from '../../components/FooterSimple.astro';
+import Logo from '../../components/Logo.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const kw = 'text-ez-green-500';
+const str = 'text-ez-yellow-500';
+const cmt = 'text-ez-grey-500';
+
+const codeInstallCurl = `<span class="${cmt}"># Detects platform, downloads binary, verifies checksum</span>
+curl -fsSL https://raw.githubusercontent.com/ezmode-games/smuggler/main/install.sh | bash`;
+
+const codeInstallCargo = `<span class="${cmt}"># From source (requires Rust toolchain)</span>
+cargo install --git https://github.com/ezmode-games/smuggler`;
+
+const codeQuickStart = `<span class="${cmt}"># 1. Copy the example config</span>
+cp config.example.toml config.toml
+
+<span class="${cmt}"># 2. Add your credentials (don't commit this file, genius)</span>
+<span class="${cmt}">#    Edit config.toml with your Cloudflare details</span>
+
+<span class="${cmt}"># 3. Check if you can reach D1</span>
+smuggler status
+
+<span class="${cmt}"># 4. See what's different</span>
+smuggler diff
+
+<span class="${cmt}"># 5. Push your local changes (point of no return)</span>
+smuggler push`;
+
+const codeConfig = `<span class="${kw}">cloudflare_account_id</span> = <span class="${str}">"abc123"</span>
+<span class="${kw}">cloudflare_api_token</span>  = <span class="${str}">"your-token-with-d1-permissions"</span>
+<span class="${kw}">database_id</span>           = <span class="${str}">"your-d1-uuid"</span>
+<span class="${kw}">local_db</span>              = <span class="${str}">"/path/to/local.sqlite"</span>
+
+<span class="${cmt}"># --- Sync Settings ---</span>
+[<span class="${kw}">sync</span>]
+<span class="${cmt}"># Empty = sync all tables except excluded</span>
+<span class="${kw}">tables</span> = []
+
+<span class="${cmt}"># Things you definitely don't want to sync</span>
+<span class="${kw}">exclude_tables</span> = [
+    <span class="${str}">"sqlite_sequence"</span>,
+    <span class="${str}">"_cf_KV"</span>,
+    <span class="${str}">"__drizzle_migrations"</span>,
+]
+
+<span class="${cmt}"># Optional column for timestamp ordering when content differs</span>
+<span class="${kw}">timestamp_column</span> = <span class="${str}">"updated_at"</span>
+
+<span class="${cmt}"># When both sides changed: "local_wins", "remote_wins", "newer_wins"</span>
+<span class="${kw}">conflict_resolution</span> = <span class="${str}">"local_wins"</span>`;
+---
+
+<BaseLayout
+	title="Smuggler - ezmode.games"
+	description="Smuggle data between SQLite and Cloudflare D1. Fast. Stateless. Content hashing. Delta sync. No state files."
+>
+	<div class="min-h-screen bg-ez-grey-950">
+		<!-- Header -->
+		<header class="border-b border-ez-grey-800">
+			<div class="mx-auto max-w-4xl px-6 py-6">
+				<div class="flex items-center justify-between">
+					<a href="/" class="flex items-center gap-3">
+						<Logo class="size-10 text-white" />
+						<span class="font-display text-6xl font-semibold text-ez-yellow-500">games</span>
+					</a>
+					<a
+						href="/oss"
+						class="font-mono text-sm text-ez-grey-500 transition-colors hover:text-ez-green-500"
+					>
+						&larr; All Projects
+					</a>
+				</div>
+			</div>
+		</header>
+
+		<!-- Content -->
+		<main class="mx-auto max-w-4xl px-6 py-16">
+			<!-- Hero -->
+			<div class="mb-16">
+				<div class="mb-4 flex flex-wrap items-center gap-4">
+					<h1 class="font-display text-4xl font-bold uppercase text-white">Smuggler</h1>
+					<span class="inline-flex items-center border-2 border-ez-grey-700 bg-ez-grey-800 px-3 py-1 font-mono text-xs text-ez-grey-400">
+						MIT
+					</span>
+				</div>
+				<p class="mb-6 font-ui text-sm uppercase tracking-wider text-ez-green-500">
+					SQLite &harr; Cloudflare D1
+				</p>
+				<p class="mb-8 max-w-2xl font-mono text-sm leading-relaxed text-ez-grey-300">
+					Smuggle data between SQLite and Cloudflare D1. Fast. Stateless. Questionable life choices.
+					Content hashing catches actual changes. Delta sync only moves rows that differ.
+					No state files, no stale data, no drama.
+				</p>
+
+				<!-- Install -->
+				<div class="flex flex-wrap gap-3">
+					<div class="border-2 border-ez-green-500 bg-ez-green-500/10 px-4 py-2">
+						<code class="font-mono text-sm text-ez-green-500">curl -fsSL .../install.sh | bash</code>
+					</div>
+					<a
+						href="https://github.com/ezmode-games/smuggler"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="inline-flex items-center gap-2 border-2 border-ez-grey-600 bg-transparent px-4 py-2 font-ui text-sm uppercase tracking-wider text-ez-grey-400 transition-all hover:border-ez-grey-500 hover:bg-ez-grey-800 hover:text-white"
+					>
+						<svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+						Source
+					</a>
+					<a
+						href="https://github.com/ezmode-games/smuggler/releases"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="inline-flex items-center gap-2 border-2 border-ez-grey-600 bg-transparent px-4 py-2 font-ui text-sm uppercase tracking-wider text-ez-grey-400 transition-all hover:border-ez-grey-500 hover:bg-ez-grey-800 hover:text-white"
+					>
+						Releases
+					</a>
+				</div>
+			</div>
+
+			<!-- Architecture Diagram -->
+			<div class="mb-16 border-4 border-ez-green-500 bg-ez-green-500/10 p-6 sm:p-8">
+				<h2 class="mb-4 font-ui text-sm font-bold uppercase tracking-wider text-ez-green-500">Sync Flow</h2>
+				<div class="flex flex-wrap items-center gap-3 font-mono text-sm">
+					{['Local SQLite', 'SHA256 Hashing', 'Diff Engine', 'D1 API'].map((step) => (
+						<>
+							<span class="border-2 border-ez-grey-700 bg-ez-grey-900 px-3 py-1 text-white">{step}</span>
+							<span class="text-ez-green-500">&rarr;</span>
+						</>
+					))}
+					<span class="border-2 border-ez-green-500 bg-ez-grey-900 px-3 py-1 text-ez-green-500">Cloudflare D1</span>
+				</div>
+			</div>
+
+			<!-- Table of Contents -->
+			<nav class="mb-16 border border-ez-grey-800 bg-ez-grey-900 p-6">
+				<h2 class="mb-4 font-ui text-sm font-bold uppercase tracking-wider text-ez-green-500">Contents</h2>
+				<ul class="space-y-2 font-mono text-sm">
+					<li><a href="#quick-start" class="text-ez-grey-400 hover:text-ez-green-500">1. Quick Start</a></li>
+					<li><a href="#commands" class="text-ez-grey-400 hover:text-ez-green-500">2. Commands</a></li>
+					<li><a href="#how-it-works" class="text-ez-grey-400 hover:text-ez-green-500">3. How It Works</a></li>
+					<li><a href="#configuration" class="text-ez-grey-400 hover:text-ez-green-500">4. Configuration</a></li>
+					<li><a href="#downloads" class="text-ez-grey-400 hover:text-ez-green-500">5. Downloads</a></li>
+					<li><a href="#limitations" class="text-ez-grey-400 hover:text-ez-green-500">6. Limitations</a></li>
+				</ul>
+			</nav>
+
+			<!-- Quick Start -->
+			<section id="quick-start" class="mb-16">
+				<h2 class="mb-6 border-b border-ez-grey-800 pb-4 font-display text-2xl font-bold uppercase text-white">
+					1. Quick Start
+				</h2>
+
+				<div class="space-y-8 font-mono text-sm leading-relaxed text-ez-grey-300">
+					<div>
+						<h3 class="mb-3 font-ui text-base font-bold text-ez-green-500">Install (recommended)</h3>
+						<pre class="border border-ez-grey-800 bg-ez-grey-900 p-4"><code class="text-ez-grey-300" set:html={codeInstallCurl} /></pre>
+						<p class="mt-3 text-ez-grey-400">
+							Detects your platform, downloads the right binary, verifies the SHA256 checksum,
+							and installs to <code class="text-white">~/.local/bin/</code>. Linux x64, macOS x64, macOS ARM64.
+						</p>
+					</div>
+
+					<div>
+						<h3 class="mb-3 font-ui text-base font-bold text-white">From source</h3>
+						<pre class="border border-ez-grey-800 bg-ez-grey-900 p-4"><code class="text-ez-grey-300" set:html={codeInstallCargo} /></pre>
+					</div>
+
+					<div>
+						<h3 class="mb-3 font-ui text-base font-bold text-white">Get running</h3>
+						<pre class="border border-ez-grey-800 bg-ez-grey-900 p-4"><code class="text-ez-grey-300" set:html={codeQuickStart} /></pre>
+					</div>
+				</div>
+			</section>
+
+			<!-- Commands -->
+			<section id="commands" class="mb-16">
+				<h2 class="mb-6 border-b border-ez-grey-800 pb-4 font-display text-2xl font-bold uppercase text-white">
+					2. Commands
+				</h2>
+
+				<div class="space-y-8 font-mono text-sm leading-relaxed text-ez-grey-300">
+					<div class="space-y-4">
+						{[
+							{ cmd: 'smuggler status', desc: 'Can we phone home?' },
+							{ cmd: 'smuggler diff', desc: "What's different?" },
+							{ cmd: 'smuggler push', desc: 'Local \u2192 D1 (YOLO)' },
+							{ cmd: 'smuggler pull', desc: 'D1 \u2192 Local (safer YOLO)' },
+						].map(({ cmd, desc }) => (
+							<div class="flex flex-wrap items-baseline gap-3 border border-ez-grey-800 bg-ez-grey-900 p-4">
+								<code class="text-ez-green-500">{cmd}</code>
+								<span class="text-ez-grey-400">{desc}</span>
+							</div>
+						))}
+					</div>
+
+					<div>
+						<h3 class="mb-3 font-ui text-base font-bold text-white">Options</h3>
+						<div class="space-y-4">
+							{[
+								{ flag: '-c, --config <FILE>', desc: 'Config file. Default: config.toml' },
+								{ flag: '-v, --verbose', desc: "See what's happening under the hood." },
+								{ flag: '--dry-run', desc: "Coward mode. (Just kidding, it's smart.)" },
+								{ flag: '--table <NAME>', desc: 'Sync one table only. Validated against schema.' },
+							].map(({ flag, desc }) => (
+								<div class="flex flex-wrap items-baseline gap-3 border border-ez-grey-800 bg-ez-grey-900 p-4">
+									<code class="text-ez-green-500">{flag}</code>
+									<span class="text-ez-grey-400">{desc}</span>
+								</div>
+							))}
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- How It Works -->
+			<section id="how-it-works" class="mb-16">
+				<h2 class="mb-6 border-b border-ez-grey-800 pb-4 font-display text-2xl font-bold uppercase text-white">
+					3. How It Works
+				</h2>
+
+				<div class="space-y-8 font-mono text-sm leading-relaxed text-ez-grey-300">
+					<div>
+						<h3 class="mb-3 font-ui text-base font-bold text-ez-green-500">The Sync Algorithm</h3>
+						<p class="mb-4 text-ez-grey-400">For each table, Smuggler:</p>
+						<ol class="ml-4 list-inside list-decimal space-y-2 text-ez-grey-400">
+							<li><span class="text-white">Grabs all primary keys</span> from both databases</li>
+							<li><span class="text-white">SHA256 hashes each row's content</span> (excluding timestamp columns)</li>
+							<li><span class="text-white">Compares timestamps</span> when content differs to determine which side is newer</li>
+							<li><span class="text-white">Sorts rows into buckets</span> for action</li>
+						</ol>
+					</div>
+
+					<div>
+						<h3 class="mb-3 font-ui text-base font-bold text-white">Bucket Breakdown</h3>
+						<div class="space-y-4">
+							{[
+								{ bucket: 'local_only', desc: 'You added it locally. Push inserts to D1.' },
+								{ bucket: 'remote_only', desc: 'Someone else added it. Pull inserts locally.' },
+								{ bucket: 'local_newer', desc: 'Your timestamp wins. Push updates D1.' },
+								{ bucket: 'remote_newer', desc: 'Their timestamp wins. Pull updates local.' },
+								{ bucket: 'content_differs', desc: 'Same timestamp, different data. Configurable.' },
+								{ bucket: 'identical', desc: 'Exactly the same. Skip.' },
+							].map(({ bucket, desc }) => (
+								<div class="flex flex-wrap items-baseline gap-3 border border-ez-grey-800 bg-ez-grey-900 p-4">
+									<code class="text-ez-green-500">{bucket}</code>
+									<span class="text-ez-grey-400">{desc}</span>
+								</div>
+							))}
+						</div>
+					</div>
+
+					<div>
+						<h3 class="mb-3 font-ui text-base font-bold text-ez-green-500">Why content hashing?</h3>
+						<p class="text-ez-grey-400">
+							Timestamps lie. Clocks drift. Bulk imports set everything to "now."
+							Content hashing catches actual changes regardless of what the timestamps say.
+							Never tell me the odds -- show me the SHA256.
+						</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- Configuration -->
+			<section id="configuration" class="mb-16">
+				<h2 class="mb-6 border-b border-ez-grey-800 pb-4 font-display text-2xl font-bold uppercase text-white">
+					4. Configuration
+				</h2>
+
+				<div class="space-y-8 font-mono text-sm leading-relaxed text-ez-grey-300">
+					<div>
+						<h3 class="mb-3 font-ui text-base font-bold text-white">config.toml</h3>
+						<pre class="border border-ez-grey-800 bg-ez-grey-900 p-4"><code class="text-ez-grey-300" set:html={codeConfig} /></pre>
+					</div>
+
+					<div>
+						<h3 class="mb-3 font-ui text-base font-bold text-ez-green-500">Finding your local D1 database</h3>
+						<p class="mb-3 text-ez-grey-400">
+							Wrangler hides it at:
+						</p>
+						<pre class="border border-ez-grey-800 bg-ez-grey-900 p-4"><code class="text-ez-grey-300">.wrangler/state/v3/d1/miniflare-D1DatabaseObject/&lt;hash&gt;.sqlite</code></pre>
+						<p class="mt-3 text-ez-grey-400">
+							The hash is derived from your binding name.
+							If you have multiple databases, may the Force be with you.
+						</p>
+					</div>
+
+					<div>
+						<h3 class="mb-3 font-ui text-base font-bold text-white">API Token</h3>
+						<p class="text-ez-grey-400">
+							Get one from
+							<a href="https://dash.cloudflare.com/profile/api-tokens" target="_blank" rel="noopener noreferrer" class="text-ez-green-500 hover:underline">Cloudflare Dashboard</a>:
+						</p>
+						<ul class="mt-3 ml-4 list-inside list-disc space-y-2 text-ez-grey-400">
+							<li><span class="text-white">D1:Read</span> -- for diff, pull, status</li>
+							<li><span class="text-white">D1:Write</span> -- for push</li>
+						</ul>
+						<p class="mt-3 text-ez-grey-500">
+							Pro tip: Create one token with both permissions. Fewer tokens to lose.
+						</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- Downloads -->
+			<section id="downloads" class="mb-16">
+				<h2 class="mb-6 border-b border-ez-grey-800 pb-4 font-display text-2xl font-bold uppercase text-white">
+					5. Downloads
+				</h2>
+
+				<div class="space-y-8 font-mono text-sm leading-relaxed text-ez-grey-300">
+					<p class="text-ez-grey-400">
+						Pre-built binaries. No Rust toolchain required. Making the Kessel Run in under twelve parsecs.
+					</p>
+
+					<div class="space-y-4">
+						{[
+							{ platform: 'Linux x64', file: 'smuggler-linux-x64.tar.gz' },
+							{ platform: 'macOS x64', file: 'smuggler-macos-x64.tar.gz' },
+							{ platform: 'macOS ARM64', file: 'smuggler-macos-arm64.tar.gz' },
+						].map(({ platform, file }) => (
+							<div class="flex flex-wrap items-center justify-between gap-3 border border-ez-grey-800 bg-ez-grey-900 p-4">
+								<span class="text-white">{platform}</span>
+								<a
+									href={`https://github.com/ezmode-games/smuggler/releases/latest/download/${file}`}
+									class="text-ez-green-500 hover:underline"
+								>
+									{file}
+								</a>
+							</div>
+						))}
+					</div>
+
+					<p class="text-ez-grey-500">
+						Or use the install script above. It does the same thing but with more style.
+					</p>
+				</div>
+			</section>
+
+			<!-- Limitations -->
+			<section id="limitations" class="mb-16">
+				<h2 class="mb-6 border-b border-ez-grey-800 pb-4 font-display text-2xl font-bold uppercase text-white">
+					6. Limitations
+				</h2>
+
+				<div class="space-y-8 font-mono text-sm leading-relaxed text-ez-grey-300">
+					<p class="text-ez-grey-400">
+						Things we don't do. We're data movers, not miracle workers.
+					</p>
+
+					<div class="space-y-4">
+						{[
+							{ title: 'No schema sync', note: 'Run your migrations separately. We move data, not DDL.' },
+							{ title: 'No full-sync transactions', note: "Each batch is atomic, but the whole sync isn't. Re-run if interrupted." },
+							{ title: 'BLOB = hex string comparison', note: "Binary data compared as hex strings. It works but it's not pretty." },
+							{ title: 'Tables need primary keys', note: 'We need something to compare. Add a PK.' },
+						].map(({ title, note }) => (
+							<div class="border border-ez-grey-800 bg-ez-grey-900 p-4">
+								<span class="text-white">{title}</span>
+								<span class="ml-2 text-ez-grey-500">-- {note}</span>
+							</div>
+						))}
+					</div>
+				</div>
+			</section>
+
+			<!-- Tech stack -->
+			<section class="mb-16 border border-ez-grey-800 bg-ez-grey-900 p-6">
+				<h2 class="mb-4 font-ui text-sm font-bold uppercase tracking-wider text-ez-green-500">Stack</h2>
+				<div class="flex flex-wrap gap-2">
+					{['Rust', 'SQLite', 'Cloudflare D1', 'SHA256'].map((tech) => (
+						<span class="border-2 border-ez-grey-700 bg-ez-grey-900 px-2 py-1 font-mono text-xs text-ez-grey-500">{tech}</span>
+					))}
+				</div>
+				<p class="mt-4 font-mono text-xs text-ez-grey-500">
+					MIT Licensed. <a href="https://github.com/ezmode-games/smuggler" target="_blank" rel="noopener noreferrer" class="text-ez-green-500 hover:underline">View source on GitHub.</a>
+					"Never tell me the odds."
+				</p>
+			</section>
+		</main>
+	</div>
+
+	<FooterSimple />
+</BaseLayout>
