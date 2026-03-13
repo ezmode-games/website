@@ -109,12 +109,12 @@ const codeConfig = `<span class="${kw}">cloudflare_account_id</span> = <span cla
 						Source
 					</a>
 					<a
-						href="https://crates.io/crates/smuggler"
+						href="https://github.com/ezmode-games/smuggler/releases"
 						target="_blank"
 						rel="noopener noreferrer"
 						class="inline-flex items-center gap-2 border-2 border-ez-grey-600 bg-transparent px-4 py-2 font-ui text-sm uppercase tracking-wider text-ez-grey-400 transition-all hover:border-ez-grey-500 hover:bg-ez-grey-800 hover:text-white"
 					>
-						crates.io
+						Releases
 					</a>
 				</div>
 			</div>
@@ -123,14 +123,12 @@ const codeConfig = `<span class="${kw}">cloudflare_account_id</span> = <span cla
 			<div class="mb-16 border-4 border-ez-green-500 bg-ez-green-500/10 p-6 sm:p-8">
 				<h2 class="mb-4 font-ui text-sm font-bold uppercase tracking-wider text-ez-green-500">Sync Flow</h2>
 				<div class="flex flex-wrap items-center gap-3 font-mono text-sm">
-					<span class="border-2 border-ez-grey-700 bg-ez-grey-900 px-3 py-1 text-white">Local SQLite</span>
-					<span class="text-ez-green-500">&rarr;</span>
-					<span class="border-2 border-ez-grey-700 bg-ez-grey-900 px-3 py-1 text-white">SHA256 Hashing</span>
-					<span class="text-ez-green-500">&rarr;</span>
-					<span class="border-2 border-ez-grey-700 bg-ez-grey-900 px-3 py-1 text-white">Diff Engine</span>
-					<span class="text-ez-green-500">&rarr;</span>
-					<span class="border-2 border-ez-grey-700 bg-ez-grey-900 px-3 py-1 text-white">D1 API</span>
-					<span class="text-ez-green-500">&rarr;</span>
+					{['Local SQLite', 'SHA256 Hashing', 'Diff Engine', 'D1 API'].map((step) => (
+						<>
+							<span class="border-2 border-ez-grey-700 bg-ez-grey-900 px-3 py-1 text-white">{step}</span>
+							<span class="text-ez-green-500">&rarr;</span>
+						</>
+					))}
 					<span class="border-2 border-ez-green-500 bg-ez-grey-900 px-3 py-1 text-ez-green-500">Cloudflare D1</span>
 				</div>
 			</div>
@@ -184,59 +182,33 @@ const codeConfig = `<span class="${kw}">cloudflare_account_id</span> = <span cla
 
 				<div class="space-y-8 font-mono text-sm leading-relaxed text-ez-grey-300">
 					<div class="space-y-4">
-						<div class="border border-ez-grey-800 bg-ez-grey-900 p-4">
-							<div class="flex flex-wrap items-baseline gap-3">
-								<code class="text-ez-green-500">smuggler status</code>
-								<span class="text-ez-grey-400">Can we phone home?</span>
+						{[
+							{ cmd: 'smuggler status', desc: 'Can we phone home?' },
+							{ cmd: 'smuggler diff', desc: "What's different?" },
+							{ cmd: 'smuggler push', desc: 'Local \u2192 D1 (YOLO)' },
+							{ cmd: 'smuggler pull', desc: 'D1 \u2192 Local (safer YOLO)' },
+						].map(({ cmd, desc }) => (
+							<div class="flex flex-wrap items-baseline gap-3 border border-ez-grey-800 bg-ez-grey-900 p-4">
+								<code class="text-ez-green-500">{cmd}</code>
+								<span class="text-ez-grey-400">{desc}</span>
 							</div>
-						</div>
-						<div class="border border-ez-grey-800 bg-ez-grey-900 p-4">
-							<div class="flex flex-wrap items-baseline gap-3">
-								<code class="text-ez-green-500">smuggler diff</code>
-								<span class="text-ez-grey-400">What's different?</span>
-							</div>
-						</div>
-						<div class="border border-ez-grey-800 bg-ez-grey-900 p-4">
-							<div class="flex flex-wrap items-baseline gap-3">
-								<code class="text-ez-green-500">smuggler push</code>
-								<span class="text-ez-grey-400">Local &rarr; D1 (YOLO)</span>
-							</div>
-						</div>
-						<div class="border border-ez-grey-800 bg-ez-grey-900 p-4">
-							<div class="flex flex-wrap items-baseline gap-3">
-								<code class="text-ez-green-500">smuggler pull</code>
-								<span class="text-ez-grey-400">D1 &rarr; Local (safer YOLO)</span>
-							</div>
-						</div>
+						))}
 					</div>
 
 					<div>
 						<h3 class="mb-3 font-ui text-base font-bold text-white">Options</h3>
 						<div class="space-y-4">
-							<div class="border border-ez-grey-800 bg-ez-grey-900 p-4">
-								<div class="flex flex-wrap items-baseline gap-3">
-									<code class="text-ez-green-500">-c, --config &lt;FILE&gt;</code>
-									<span class="text-ez-grey-400">Config file. Default: <code class="text-white">config.toml</code></span>
+							{[
+								{ flag: '-c, --config <FILE>', desc: 'Config file. Default: config.toml' },
+								{ flag: '-v, --verbose', desc: "See what's happening under the hood." },
+								{ flag: '--dry-run', desc: "Coward mode. (Just kidding, it's smart.)" },
+								{ flag: '--table <NAME>', desc: 'Sync one table only. Validated against schema.' },
+							].map(({ flag, desc }) => (
+								<div class="flex flex-wrap items-baseline gap-3 border border-ez-grey-800 bg-ez-grey-900 p-4">
+									<code class="text-ez-green-500">{flag}</code>
+									<span class="text-ez-grey-400">{desc}</span>
 								</div>
-							</div>
-							<div class="border border-ez-grey-800 bg-ez-grey-900 p-4">
-								<div class="flex flex-wrap items-baseline gap-3">
-									<code class="text-ez-green-500">-v, --verbose</code>
-									<span class="text-ez-grey-400">See what's happening under the hood.</span>
-								</div>
-							</div>
-							<div class="border border-ez-grey-800 bg-ez-grey-900 p-4">
-								<div class="flex flex-wrap items-baseline gap-3">
-									<code class="text-ez-green-500">--dry-run</code>
-									<span class="text-ez-grey-400">Coward mode. (Just kidding, it's smart.)</span>
-								</div>
-							</div>
-							<div class="border border-ez-grey-800 bg-ez-grey-900 p-4">
-								<div class="flex flex-wrap items-baseline gap-3">
-									<code class="text-ez-green-500">--table &lt;NAME&gt;</code>
-									<span class="text-ez-grey-400">Sync one table only. Validated against schema.</span>
-								</div>
-							</div>
+							))}
 						</div>
 					</div>
 				</div>
@@ -263,42 +235,19 @@ const codeConfig = `<span class="${kw}">cloudflare_account_id</span> = <span cla
 					<div>
 						<h3 class="mb-3 font-ui text-base font-bold text-white">Bucket Breakdown</h3>
 						<div class="space-y-4">
-							<div class="border border-ez-grey-800 bg-ez-grey-900 p-4">
-								<div class="flex flex-wrap items-baseline gap-3">
-									<code class="text-ez-green-500">local_only</code>
-									<span class="text-ez-grey-400">You added it locally. Push inserts to D1.</span>
+							{[
+								{ bucket: 'local_only', desc: 'You added it locally. Push inserts to D1.' },
+								{ bucket: 'remote_only', desc: 'Someone else added it. Pull inserts locally.' },
+								{ bucket: 'local_newer', desc: 'Your timestamp wins. Push updates D1.' },
+								{ bucket: 'remote_newer', desc: 'Their timestamp wins. Pull updates local.' },
+								{ bucket: 'content_differs', desc: 'Same timestamp, different data. Configurable.' },
+								{ bucket: 'identical', desc: 'Exactly the same. Skip.' },
+							].map(({ bucket, desc }) => (
+								<div class="flex flex-wrap items-baseline gap-3 border border-ez-grey-800 bg-ez-grey-900 p-4">
+									<code class="text-ez-green-500">{bucket}</code>
+									<span class="text-ez-grey-400">{desc}</span>
 								</div>
-							</div>
-							<div class="border border-ez-grey-800 bg-ez-grey-900 p-4">
-								<div class="flex flex-wrap items-baseline gap-3">
-									<code class="text-ez-green-500">remote_only</code>
-									<span class="text-ez-grey-400">Someone else added it. Pull inserts locally.</span>
-								</div>
-							</div>
-							<div class="border border-ez-grey-800 bg-ez-grey-900 p-4">
-								<div class="flex flex-wrap items-baseline gap-3">
-									<code class="text-ez-green-500">local_newer</code>
-									<span class="text-ez-grey-400">Your timestamp wins. Push updates D1.</span>
-								</div>
-							</div>
-							<div class="border border-ez-grey-800 bg-ez-grey-900 p-4">
-								<div class="flex flex-wrap items-baseline gap-3">
-									<code class="text-ez-green-500">remote_newer</code>
-									<span class="text-ez-grey-400">Their timestamp wins. Pull updates local.</span>
-								</div>
-							</div>
-							<div class="border border-ez-grey-800 bg-ez-grey-900 p-4">
-								<div class="flex flex-wrap items-baseline gap-3">
-									<code class="text-ez-green-500">content_differs</code>
-									<span class="text-ez-grey-400">Same timestamp, different data. Configurable.</span>
-								</div>
-							</div>
-							<div class="border border-ez-grey-800 bg-ez-grey-900 p-4">
-								<div class="flex flex-wrap items-baseline gap-3">
-									<code class="text-ez-green-500">identical</code>
-									<span class="text-ez-grey-400">Exactly the same. Skip.</span>
-								</div>
-							</div>
+							))}
 						</div>
 					</div>
 
@@ -366,45 +315,21 @@ const codeConfig = `<span class="${kw}">cloudflare_account_id</span> = <span cla
 					</p>
 
 					<div class="space-y-4">
-						<div class="border border-ez-grey-800 bg-ez-grey-900 p-4">
-							<div class="flex flex-wrap items-center justify-between gap-3">
-								<div>
-									<span class="text-white">Linux x64</span>
-								</div>
+						{[
+							{ platform: 'Linux x64', file: 'smuggler-linux-x64.tar.gz' },
+							{ platform: 'macOS x64', file: 'smuggler-macos-x64.tar.gz' },
+							{ platform: 'macOS ARM64', file: 'smuggler-macos-arm64.tar.gz' },
+						].map(({ platform, file }) => (
+							<div class="flex flex-wrap items-center justify-between gap-3 border border-ez-grey-800 bg-ez-grey-900 p-4">
+								<span class="text-white">{platform}</span>
 								<a
-									href="https://github.com/ezmode-games/smuggler/releases/latest/download/smuggler-linux-x64.tar.gz"
+									href={`https://github.com/ezmode-games/smuggler/releases/latest/download/${file}`}
 									class="text-ez-green-500 hover:underline"
 								>
-									smuggler-linux-x64.tar.gz
+									{file}
 								</a>
 							</div>
-						</div>
-						<div class="border border-ez-grey-800 bg-ez-grey-900 p-4">
-							<div class="flex flex-wrap items-center justify-between gap-3">
-								<div>
-									<span class="text-white">macOS x64</span>
-								</div>
-								<a
-									href="https://github.com/ezmode-games/smuggler/releases/latest/download/smuggler-macos-x64.tar.gz"
-									class="text-ez-green-500 hover:underline"
-								>
-									smuggler-macos-x64.tar.gz
-								</a>
-							</div>
-						</div>
-						<div class="border border-ez-grey-800 bg-ez-grey-900 p-4">
-							<div class="flex flex-wrap items-center justify-between gap-3">
-								<div>
-									<span class="text-white">macOS ARM64</span>
-								</div>
-								<a
-									href="https://github.com/ezmode-games/smuggler/releases/latest/download/smuggler-macos-arm64.tar.gz"
-									class="text-ez-green-500 hover:underline"
-								>
-									smuggler-macos-arm64.tar.gz
-								</a>
-							</div>
-						</div>
+						))}
 					</div>
 
 					<p class="text-ez-grey-500">
@@ -425,30 +350,17 @@ const codeConfig = `<span class="${kw}">cloudflare_account_id</span> = <span cla
 					</p>
 
 					<div class="space-y-4">
-						<div class="border border-ez-grey-800 bg-ez-grey-900 p-4">
-							<div>
-								<span class="text-white">No schema sync</span>
-								<span class="ml-2 text-ez-grey-500">-- Run your migrations separately. We move data, not DDL.</span>
+						{[
+							{ title: 'No schema sync', note: 'Run your migrations separately. We move data, not DDL.' },
+							{ title: 'No full-sync transactions', note: "Each batch is atomic, but the whole sync isn't. Re-run if interrupted." },
+							{ title: 'BLOB = hex string comparison', note: "Binary data compared as hex strings. It works but it's not pretty." },
+							{ title: 'Tables need primary keys', note: 'We need something to compare. Add a PK.' },
+						].map(({ title, note }) => (
+							<div class="border border-ez-grey-800 bg-ez-grey-900 p-4">
+								<span class="text-white">{title}</span>
+								<span class="ml-2 text-ez-grey-500">-- {note}</span>
 							</div>
-						</div>
-						<div class="border border-ez-grey-800 bg-ez-grey-900 p-4">
-							<div>
-								<span class="text-white">No full-sync transactions</span>
-								<span class="ml-2 text-ez-grey-500">-- Each batch is atomic, but the whole sync isn't. Re-run if interrupted.</span>
-							</div>
-						</div>
-						<div class="border border-ez-grey-800 bg-ez-grey-900 p-4">
-							<div>
-								<span class="text-white">BLOB = hex string comparison</span>
-								<span class="ml-2 text-ez-grey-500">-- Binary data compared as hex strings. It works but it's not pretty.</span>
-							</div>
-						</div>
-						<div class="border border-ez-grey-800 bg-ez-grey-900 p-4">
-							<div>
-								<span class="text-white">Tables need primary keys</span>
-								<span class="ml-2 text-ez-grey-500">-- We need something to compare. Add a PK.</span>
-							</div>
-						</div>
+						))}
 					</div>
 				</div>
 			</section>
@@ -457,10 +369,9 @@ const codeConfig = `<span class="${kw}">cloudflare_account_id</span> = <span cla
 			<section class="mb-16 border border-ez-grey-800 bg-ez-grey-900 p-6">
 				<h2 class="mb-4 font-ui text-sm font-bold uppercase tracking-wider text-ez-green-500">Stack</h2>
 				<div class="flex flex-wrap gap-2">
-					<span class="border-2 border-ez-grey-700 bg-ez-grey-900 px-2 py-1 font-mono text-xs text-ez-grey-500">Rust</span>
-					<span class="border-2 border-ez-grey-700 bg-ez-grey-900 px-2 py-1 font-mono text-xs text-ez-grey-500">SQLite</span>
-					<span class="border-2 border-ez-grey-700 bg-ez-grey-900 px-2 py-1 font-mono text-xs text-ez-grey-500">Cloudflare D1</span>
-					<span class="border-2 border-ez-grey-700 bg-ez-grey-900 px-2 py-1 font-mono text-xs text-ez-grey-500">SHA256</span>
+					{['Rust', 'SQLite', 'Cloudflare D1', 'SHA256'].map((tech) => (
+						<span class="border-2 border-ez-grey-700 bg-ez-grey-900 px-2 py-1 font-mono text-xs text-ez-grey-500">{tech}</span>
+					))}
 				</div>
 				<p class="mt-4 font-mono text-xs text-ez-grey-500">
 					MIT Licensed. <a href="https://github.com/ezmode-games/smuggler" target="_blank" rel="noopener noreferrer" class="text-ez-green-500 hover:underline">View source on GitHub.</a>
