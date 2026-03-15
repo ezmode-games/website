@@ -8,7 +8,7 @@ const str = 'text-ez-yellow-500';
 const cmt = 'text-ez-grey-500';
 
 const codeInstallCurl = `<span class="${cmt}"># Detects platform, downloads binary, verifies checksum</span>
-curl -fsSL https://raw.githubusercontent.com/ezmode-games/smuggler/main/install.sh | bash`;
+curl -fsSL https://ezmode.games/oss/smuggler/install.sh | bash`;
 
 const codeInstallCargo = `<span class="${cmt}"># From source (requires Rust toolchain)</span>
 cargo install --git https://github.com/ezmode-games/smuggler`;
@@ -97,7 +97,7 @@ const codeConfig = `<span class="${kw}">cloudflare_account_id</span> = <span cla
 				<!-- Install -->
 				<div class="flex flex-wrap gap-3">
 					<div class="border-2 border-ez-green-500 bg-ez-green-500/10 px-4 py-2">
-						<code class="font-mono text-sm text-ez-green-500">curl -fsSL .../install.sh | bash</code>
+						<code class="font-mono text-sm text-ez-green-500">curl -fsSL ezmode.games/oss/smuggler/install.sh | bash</code>
 					</div>
 					<a
 						href="https://github.com/ezmode-games/smuggler"
